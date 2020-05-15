@@ -1,0 +1,306 @@
+[
+  {
+    "id": "ikigai",
+    "category": "To Read",
+    "merchant": "Bookshop",
+    "item": "Ikigai",
+    "points": 5,
+    "link": "https://bookshop.org/books/ikigai-the-japanese-secret-to-a-long-and-happy-life/9780143130727"
+  },
+  {
+    "id": "wine",
+    "category": "To Read",
+    "merchant": "Bookshop",
+    "item": "Wine Simple",
+    "points": 5,
+    "link": "https://bookshop.org/books/wine-simple-a-totally-approachable-guide-from-a-world-class-sommelier/9781984824257"
+  },
+  {
+    "id": "tattooist",
+    "category": "To Read",
+    "merchant": "Bookshop",
+    "item": "Tattooist of Auschwitz",
+    "points": 5,
+    "link": "https://bookshop.org/books/the-tattooist-of-auschwitz/9780062797155"
+  },
+  {
+    "id": "nasa",
+    "category": "To Read",
+    "merchant": "Bookshop",
+    "item": "Nasa Graphics",
+    "points": 5,
+    "link": "https://uncrate.com/nasa-graphics-standards-manual/"
+  },
+  {
+    "id": "warhol",
+    "category": "To Read",
+    "merchant": "Bookshop",
+    "item": "Warhol",
+    "points": 5,
+    "link": "https://bookshop.org/books/warhol-9783836543897/9783836543897"
+  },
+  {
+    "id": "cherry",
+    "category": "To Read",
+    "merchant": "Bookshop",
+    "item": "Cherry by Nico Walker",
+    "points": 5,
+    "link": "https://bookshop.org/books/cherry-9780525435938/9780525435938"
+  },
+  {
+    "id": "square-circle-triangle",
+    "category": "To Read",
+    "merchant": "Bookshop",
+    "item": "Square Circle Triangle by Bruno Munari",
+    "points": 5,
+    "link": "https://bookshop.org/books/bruno-munari-square-circle-triangle/9781616894122"
+  },
+  {
+    "id": "wnrs",
+    "category": "To Play",
+    "merchant": "We're Not Really Strangers",
+    "item": "WNRS Card Game",
+    "points": 5,
+    "link": "https://www.werenotreallystrangers.com/collections/shop-all/products/not-really-strangers-card-deck"
+  },
+  {
+    "id": "puzzle-a",
+    "category": "To Play",
+    "merchant": "Piecework Puzzles",
+    "item": "Meta Puzzle",
+    "points": 5,
+    "link": "https://pieceworkpuzzles.com/products/meta-puzzle"
+  },
+  {
+    "id": "haus",
+    "category": "To Drink",
+    "merchant": "Haus",
+    "item": "Starter Kit",
+    "points": 5,
+    "link": "https://drink.haus/pages/the-restaurant-project"
+  },
+  {
+    "id": "winc",
+    "category": "To Drink",
+    "merchant": "Winc",
+    "item": "Wine Subscription",
+    "points": 5,
+    "link": "https://www.winc.com/hi/m4zvu515i94"
+  },
+  {
+    "id": "devocion",
+    "category": "To Cook",
+    "merchant": "Devocion",
+    "item": "Coffee Subscription",
+    "points": 5,
+    "link": "https://www.devocion.com/products/coffee-subscription"
+  },
+  {
+    "id": "blue-bottle",
+    "category": "To Cook",
+    "merchant": "Blue Bottle",
+    "item": "Cold Brew Bottle",
+    "points": 5,
+    "link": "https://bluebottlecoffee.com/store/hario-cold-brew-bottle"
+  },
+  {
+    "id": "equal-parts",
+    "category": "To Cook",
+    "merchant": "Equal Parts",
+    "item": "Chef Knife",
+    "points": 5,
+    "link": "https://equalparts.com/"
+  },
+  {
+    "id": "salt-fat-acid-heat",
+    "category": "To Cook",
+    "merchant": "Bookshop",
+    "item": "Salt Fat Acid Heat",
+    "points": 5,
+    "link": "https://bookshop.org/books/salt-fat-acid-heat-mastering-the-elements-of-good-cooking-9781508284000/9781476753836"
+  },
+  {
+    "id": "lateral-cooking",
+    "category": "To Cook",
+    "merchant": "Bookshop",
+    "item": "Lateral Cooking",
+    "points": 5,
+    "link": "https://bookshop.org/books/lateral-cooking-one-dish-leads-to-another/9781635572643"
+  },
+  {
+    "id": "grocer",
+    "category": "To Cook",
+    "merchant": "Pop Up Grocer",
+    "item": "Grocer Box",
+    "points": 5,
+    "link": "https://www.popupgrocer.co/shop-2/the-pop-up-grocer-box"
+  },
+  {
+    "id": "brightland",
+    "category": "To Cook",
+    "merchant": "Brightland",
+    "item": "The Brilliant Culinarian Set",
+    "points": 5,
+    "link": "https://brightland.co/collections/shop/products/the-brilliant-culinarian-set"
+  },
+  {
+    "id": "van-lewens",
+    "category": "To Cook",
+    "merchant": "Van Lewens",
+    "item": "Ice Cream",
+    "points": 5,
+    "link": "https://vanleeuwenicecream.goldbelly.com/choose-your-own-ice-cream-6-pack?ref=collection"
+  },
+  {
+    "id": "boysmells",
+    "category": "To Relax",
+    "merchant": "BoySmells",
+    "item": "Cinderose Candle",
+    "points": 5,
+    "link": "https://boysmells.com/collections/best-sellers/products/cinderose"
+  },
+  {
+    "id": "glossier",
+    "category": "To Relax",
+    "merchant": "Glossier",
+    "item": "Skincare Kit",
+    "points": 5,
+    "link": "https://www.glossier.com/products/the-skincare-set"
+  },
+  {
+    "id": "herbivore",
+    "category": "To Relax",
+    "merchant": "Herbivore",
+    "item": "Facial Kit",
+    "points": 5,
+    "link": "https://www.herbivorebotanicals.com/products/rose-quartz-ritual-kit-1"
+  },
+  {
+    "id": "gravity",
+    "category": "To Relax",
+    "merchant": "Gravity",
+    "item": "Weighted Sleep Mask",
+    "points": 5,
+    "link": "https://gravityblankets.com/products/the-gravity-sleep-mask"
+  },
+  {
+    "id": "unhide",
+    "category": "To Relax",
+    "merchant": "Unhide",
+    "item": "Lil Marsh Blanket",
+    "points": 5,
+    "link": "https://unhide.us/"
+  },
+  {
+    "id": "grown-alchemist",
+    "category": "To Relax",
+    "merchant": "Grown Alchemist",
+    "item": "Hand Cream Kit",
+    "points": 5,
+    "link": "https://www.grownalchemist.com/us/holiday-intensive-body-hydration-limited-edition-kit-2.html"
+  },
+  {
+    "id": "hawthorne",
+    "category": "To Relax",
+    "merchant": "Hawthorne",
+    "item": "Care Kit",
+    "points": 5,
+    "link": "https://hawthorne.co/"
+  },
+  {
+    "id": "maude",
+    "category": "To Relax",
+    "merchant": "Maude",
+    "item": "Nightcap Kit",
+    "points": 5,
+    "link": "https://getmaude.com/products/nightcap-kit"
+  },
+  {
+    "id": "click-grow",
+    "category": "To Cultivate",
+    "merchant": "Click + Grow",
+    "item": "Smart Garden 3",
+    "points": 5,
+    "link": "https://www.clickandgrow.com/products/the-smart-garden-3?variant=33068920975"
+  },
+  {
+    "id": "bloomscape",
+    "category": "To Cultivate",
+    "merchant": "Bloomscape",
+    "item": "Philodendron Heartleaf",
+    "points": 5,
+    "link": "https://bloomscape.com/product/philodendron-heartleaf/"
+  },
+  {
+    "id": "rooted",
+    "category": "To Cultivate",
+    "merchant": "Rooted",
+    "item": "Breath of Fresh Air Mystery Box",
+    "points": 5,
+    "link": "https://rooted.nyc/collections/plants/products/small-plants-mystery-bundle?variant=31691722031153"
+  },
+  {
+    "id": "disposable",
+    "category": "To Create",
+    "merchant": "Manual Photo",
+    "item": "Disposable",
+    "points": 5,
+    "link": "https://manualphoto.bigcartel.com/product/manual-disposable-volt"
+  },
+  {
+    "id": "psych",
+    "category": "To Create",
+    "merchant": "Psych Blues",
+    "item": "Single Use Camera",
+    "points": 5,
+    "link": "http://psychblues.com/film-shop"
+  },
+  {
+    "id": "madhappy",
+    "category": "To Wear",
+    "merchant": "Madhappy",
+    "item": "Hoodie",
+    "points": 5,
+    "link": "https://www.madhappy.com/"
+  },
+  {
+    "id": "east",
+    "category": "To Wear",
+    "merchant": "18 East",
+    "item": "Shorts",
+    "points": 5,
+    "link": "https://18east.co/"
+  },
+  {
+    "id": "offhours",
+    "category": "To Wear",
+    "merchant": "Offhours",
+    "item": "Homecoat",
+    "points": 5,
+    "link": "https://offhours.co/"
+  },
+  {
+    "id": "lunya",
+    "category": "To Wear",
+    "merchant": "Lunya",
+    "item": "Washable Silk Pajamas",
+    "points": 5,
+    "link": "https://www.lunya.co/"
+  },
+  {
+    "id": "lou-grey",
+    "category": "To Wear",
+    "merchant": "Lou & Grey",
+    "item": "Fabrics We Love",
+    "points": 5,
+    "link": "https://www.louandgrey.com/lg-fabrics-we-love/cat3250003?loc=lghp_a2_FG_040620&icid=lghp_a2_FG_040620"
+  },
+  {
+    "id": "merchaid",
+    "category": "To Wear",
+    "merchant": "Merchaid",
+    "item": "T-Shirt",
+    "points": 5,
+    "link": "https://getmerchaid.com/"
+  }
+]

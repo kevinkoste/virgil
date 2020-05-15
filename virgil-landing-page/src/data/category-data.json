@@ -1,0 +1,44 @@
+[
+    {
+      "category": "To Read",
+      "subtitle": "Not Twitter",
+      "points": 0,
+      "image": "Read.png"
+    },
+    {
+      "category": "To Play",
+      "subtitle": "The Monopoly Stock Market is Booming",
+      "points": 0,
+      "image": "Play.jpg"
+    },
+    {
+      "category": "To Drink",
+      "subtitle": "Because We All Need One",
+      "points": 0,
+      "image": "Drink.png"
+    },
+    {
+      "category": "To Cook",
+      "subtitle": "Impress Your Hinge Dates",
+      "points": 0,
+      "image": "Cook.png"
+    },
+    {
+      "category": "To Relax",
+      "subtitle": "Sweatpants Hairtie, Chillin With No Makeup On",
+      "points": 0,
+      "image": "Relax.jpg"
+    },
+    {
+      "category": "To Cultivate",
+      "subtitle": "Plants are Pets that don't Pee",
+      "points": 0,
+      "image": "Cultivate.png"
+    },
+    {
+      "category": "To Create",
+      "subtitle": "For your Fall 2020 Soho House Application",
+      "points": 0,
+      "image": "Create.png"
+    }
+  ]
