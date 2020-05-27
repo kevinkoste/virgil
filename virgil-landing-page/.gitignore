@@ -1,6 +1,6 @@
 
-.DS_Store
 /src/archive
+/public
 
 # dependencies
 /node_modules
@@ -11,7 +11,7 @@
 /coverage
 
 # production
-# /build
+/build
 
 # misc
 .DS_Store
