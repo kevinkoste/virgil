@@ -1,4 +1,4 @@
-# Virgil React App
+# Virgil Website
 
 This is the repo for Virgil's website, a React app hosted as a static site on AWS S3. (virgilcard.com)
 
