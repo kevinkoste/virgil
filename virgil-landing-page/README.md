@@ -24,6 +24,6 @@ This is the repo for Virgil's website, a React app hosted as a static site on AW
 ##### Referral Dashboard
 ![Referral Dashboard Image](https://github.com/kevinkoste/virgil-web-app/blob/master/src/img/readme/dashboard.png)
 
-##### Homepage on Mobile
+##### Home on Mobile
 ![Mobile Image](https://github.com/kevinkoste/virgil-web-app/blob/master/src/img/readme/mobile.png)
 
