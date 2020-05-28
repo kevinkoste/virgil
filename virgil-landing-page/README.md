@@ -15,5 +15,5 @@ This is the repo for Virgil's website, a React app hosted as a static site on AW
 * Email: Personalized emails for new user signups (AWS SES)
 * Monitoring: Replicated referral data for quick monitoring and "fraud" detection (Google Sheets API)
 
-![Mobile Image](https://github.com/kevinkoste/virgil-web-app/blob/master/src/img/readme/mobile.png)
+![Mobile Image](https://github.com/kevinkoste/virgil-web-app/blob/master/src/img/readme/dashboard.png)
 
