@@ -1,5 +1,6 @@
 
 /src/archive
+/public
 
 # dependencies
 /node_modules
