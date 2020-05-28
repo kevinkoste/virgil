@@ -36,6 +36,7 @@ export default function IntentPage() {
     axios.post(loginEndpoint, {user: inputUser, password: inputPassword})
     .then(response => {
       console.log(response.data)
+      setSubmitted(true)
     })
     .catch(error => {
       console.log(error)

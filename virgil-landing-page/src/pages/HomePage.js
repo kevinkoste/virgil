@@ -1,6 +1,6 @@
 // core
 import React, { useState, useEffect } from 'react'
-import { Link, useLocation, useHistory } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import qs from 'qs'
 
 //for Slider
@@ -10,7 +10,7 @@ import Slider from 'react-input-slider';
 import axios from 'axios'
 
 // for video player
-import ReactPlayer from 'react-player'
+// import ReactPlayer from 'react-player'
 
 // styling
 import '../styles/fonts.css'
@@ -20,7 +20,7 @@ import media from '../styles/media'
 import AOS from 'aos'
 
 //video
-import homeVideo from '../video/video.mp4'
+// import homeVideo from '../video/video.mp4'
 
 // images
 import imgCards from '../video/cards-virgil.png'
@@ -111,14 +111,14 @@ const Image = styled(Div)`
   height: 100%;
 `
 
-const GiveawayImage = styled(Div)`
-  background-image: url(${props => props.src});
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
-  height: 100%;
-  width: 100%;
-`
+// const GiveawayImage = styled(Div)`
+//   background-image: url(${props => props.src});
+//   background-size: contain;
+//   background-position: center;
+//   background-repeat: no-repeat;
+//   height: 100%;
+//   width: 100%;
+// `
 
 export default function HomePage() {
 
@@ -205,20 +205,20 @@ const BigBox = styled(Div)`
   width: 40vw;
   background-color: #000;
 `
-const Banner = styled(Div)`
-  position: absolute;
-  height: 5vh;
-  width: 99vw;
-  background-color: #000;
-  align-items: center;
-  justify-content: center;
-  border-bottom: 1px solid #FFF;
-  margin: 0px 0px 0px 0px;
-  ${media.md`
-    height: 50px;
-    position: relative;
-  `}
-`
+// const Banner = styled(Div)`
+//   position: absolute;
+//   height: 5vh;
+//   width: 99vw;
+//   background-color: #000;
+//   align-items: center;
+//   justify-content: center;
+//   border-bottom: 1px solid #FFF;
+//   margin: 0px 0px 0px 0px;
+//   ${media.md`
+//     height: 50px;
+//     position: relative;
+//   `}
+// `
 
 const BigTriangle = styled(Div)`
   position: absolute;
@@ -274,14 +274,14 @@ const FooterTitle = styled(HeaderTitle)`
 const PageOne = () => {
 
   let mobileView = useDetectMobileView()
-  let history = useHistory()
+  // let history = useHistory()
 
   // get query strings
   let location = useLocation()
   const queryObj = qs.parse(location.search, { ignoreQueryPrefix: true })
   const refer_id = queryObj.ref
 
-  const [postResponse, setPostResponse] = useState(null)
+  // const [postResponse, setPostResponse] = useState(null)
   const [emailSubmitted, setEmailSubmitted] = useState(false)
   const [emailInput, setEmailInput] = useState('')
   const [invalidInput, setInvalidInput] = useState(false)
@@ -299,7 +299,7 @@ const PageOne = () => {
         .then(response => {
           console.log('in post success callback, response.data is: ')
           console.log(response.data)
-          setPostResponse(response.data)
+          // setPostResponse(response.data)
         })
         .catch(error => {
           console.log(error)
@@ -309,13 +309,13 @@ const PageOne = () => {
     }
   }
 
-  const handleDashboardSubmit = () => {
-    if (postResponse) {
-      history.push(`/giveaway?ref=${postResponse.id}`)      
-    } else {
-      history.push('/')
-    }
-  }
+  // const handleDashboardSubmit = () => {
+  //   if (postResponse) {
+  //     history.push(`/giveaway?ref=${postResponse.id}`)      
+  //   } else {
+  //     history.push('/')
+  //   }
+  // }
 
   return (
     <Div web={11} mobile={12}
@@ -524,7 +524,7 @@ const PageTwo = () => {
             Virgil analyzes your data in-house to improve your rewards experience. 
             We work for you, not the other way around.
           </BodyText>
-          <Link to='/howitworks' style={{textDecoration:'none', textDecoration:'underline #000'}}>
+          <Link to='/howitworks' style={{textDecoration:'underline #000'}}>
             <BodyText>
               Learn more
             </BodyText>
@@ -908,7 +908,7 @@ const SliderPage = () => {
             Our rewards system is designed so that all incentives are aligned&mdash;yours, brands, and ours.
             We also offer more than 3% in value back, better than the 2% industry standard.
           </BodyText>
-          <Link to='/howitworks' style={{textDecoration:'none', textDecoration:'underline #000'}}>
+          <Link to='/howitworks' style={{textDecoration:'underline #000'}}>
             <BodyText>
               Learn more
             </BodyText>
@@ -1297,14 +1297,14 @@ const PolaroidStyling = styled(Div)`
 const GiveawayDivider = () => {
 
   let mobileView = useDetectMobileView()
-  let history = useHistory()
+  // let history = useHistory()
 
   // get query strings
   let location = useLocation()
   const queryObj = qs.parse(location.search, { ignoreQueryPrefix: true })
   const refer_id = queryObj.ref
 
-  const [postResponse, setPostResponse] = useState(null)
+  // const [postResponse, setPostResponse] = useState(null)
   const [emailSubmitted, setEmailSubmitted] = useState(false)
   const [emailInput, setEmailInput] = useState('')
   const [invalidInput, setInvalidInput] = useState(false)
@@ -1322,7 +1322,7 @@ const GiveawayDivider = () => {
         .then(response => {
           console.log('in post success callback, response.data is: ')
           console.log(response.data)
-          setPostResponse(response.data)
+          // setPostResponse(response.data)
         })
         .catch(error => {
           console.log(error)
@@ -1443,18 +1443,18 @@ const PolaroidText = styled(BodyText)`
   text-align: left;
 `
 
-const VideoContainer = styled(Div)`
-  position: relative;
-  z-index: -3;
-  height: 100%;
-  justify-content: center;
-  align-items: center;
-  ${media.md`
-    height: 100vw;
-    max-height: 100vw;
-    padding-bottom: 20px;
-  `}
-`
+// const VideoContainer = styled(Div)`
+//   position: relative;
+//   z-index: -3;
+//   height: 100%;
+//   justify-content: center;
+//   align-items: center;
+//   ${media.md`
+//     height: 100vw;
+//     max-height: 100vw;
+//     padding-bottom: 20px;
+//   `}
+// `
 
 const PolaroidImageContainer = styled(Div)`
   height: 78%;  

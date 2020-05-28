@@ -14,9 +14,9 @@ import { Div } from '../styles/CustomGrid'
 // import { useTable } from 'react-table'
 
 // media
-import logoMirror from '../img/homepage/mirror.png'
-import logoDevialet from '../img/homepage/devialet.png'
-import logoContax from '../img/homepage/contax.png'
+// import logoMirror from '../img/homepage/mirror.png'
+// import logoDevialet from '../img/homepage/devialet.png'
+// import logoContax from '../img/homepage/contax.png'
 
 // deployment stuff
 const waitlistEndpoint = (process.env.NODE_ENV === 'development')
@@ -488,21 +488,21 @@ const BodyText = styled.h3`
     text-align: center;
   `}
 `
-const SubText = styled(BodyText)`
-  font-size: 14px;
-  margin: 0px;
-  line-height: 18px;
-  ${media.md`
-    line-height: 24px;
-    margin-bottom: 5px;
-  `}
-`
+// const SubText = styled(BodyText)`
+//   font-size: 14px;
+//   margin: 0px;
+//   line-height: 18px;
+//   ${media.md`
+//     line-height: 24px;
+//     margin-bottom: 5px;
+//   `}
+// `
 
-const Image = styled(Div)`
-  background-image: url(${props => props.src});
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
-  height: 100%;
-  width: 100%;
-`
+// const Image = styled(Div)`
+//   background-image: url(${props => props.src});
+//   background-size: contain;
+//   background-position: center;
+//   background-repeat: no-repeat;
+//   height: 100%;
+//   width: 100%;
+// `

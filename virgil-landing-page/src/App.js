@@ -7,7 +7,7 @@ import HowItWorksPage from './pages/HowItWorksPage'
 import ConnectPage from './pages/ConnectPage'
 import DashboardPage from './pages/DashboardPage'
 import IntentPage from './pages/IntentPage'
-import SweepstakesRules from './pages/SweepstakesRulesPage'
+// import SweepstakesRules from './pages/SweepstakesRulesPage'
 import PrivacyPage from './pages/PrivacyPolicyPage'
 import LoginPage from './pages/LoginPage'
 
