@@ -14,14 +14,37 @@ import { Div } from '../styles/CustomGrid'
 // import { useTable } from 'react-table'
 
 // media
-// import logoMirror from '../img/homepage/mirror.png'
-// import logoDevialet from '../img/homepage/devialet.png'
-// import logoContax from '../img/homepage/contax.png'
+import logoMirror from '../img/homepage/mirror.png'
+import logoDevialet from '../img/homepage/devialet.png'
+import logoContax from '../img/homepage/contax.png'
 
 // deployment stuff
 const waitlistEndpoint = (process.env.NODE_ENV === 'development')
   ? 'http://localhost:3000/waitlist'
   : 'https://api.virgilcard.com/waitlist'
+
+
+// const refData = {
+//   refer_id: 'aiCEDLlLr',
+//   refer_count: 11,
+//   refer_points: 67,
+//   top_five: [
+//     {
+//       refer_count: 78,
+//       refer_points: 3082,
+//     },
+//     {
+//       refer_count: 67,
+//       refer_points: 2279,
+//     },
+//     {
+//       refer_count: 46,
+//       refer_points: 1082,
+//     },
+//   ],
+//   total_points: 12278
+// }
+
 
 export default function DashboardPage() {
 
@@ -59,53 +82,52 @@ export default function DashboardPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-
   // return invalid ref page if not working
-  if (!validRef) {
-    return (
-      <Div web={12} style={{backgroundColor:'#000', flexDirection:'column', alignItems:'center', minHeight: '100vh'}}>
+  // if (!validRef) {
+  //   return (
+  //     <Div web={12} style={{backgroundColor:'#000', flexDirection:'column', alignItems:'center', minHeight: '100vh'}}>
 
-        <HeaderContainer web={11} style={{flexDirection:'row', alignItems:'flex-end'}}>
-          <Link to='/' style={{textDecoration: 'none'}}>
-            <HeaderTitle>
-              Virgil
-            </HeaderTitle>
-          </Link>
-        </HeaderContainer>
+  //       <HeaderContainer web={11} style={{flexDirection:'row', alignItems:'flex-end'}}>
+  //         <Link to='/' style={{textDecoration: 'none'}}>
+  //           <HeaderTitle>
+  //             Virgil
+  //           </HeaderTitle>
+  //         </Link>
+  //       </HeaderContainer>
 
-        <Div web={11} mobile={10} style={{height: mobileView ? '71vh' : '60vh',
-          alignItems: 'center', justifyContent: 'center'}}>
-          <TitleText style={{color:'#FFF', textTransform:'capitalize'}}>
-            Oh no!<br></br><br></br>Your giveaway link isn't working.
-          </TitleText>
-        </Div>
+  //       <Div web={11} mobile={10} style={{height: mobileView ? '71vh' : '60vh',
+  //         alignItems: 'center', justifyContent: 'center'}}>
+  //         <TitleText style={{color:'#FFF', textTransform:'capitalize'}}>
+  //           Oh no!<br></br><br></br>Your giveaway link isn't working.
+  //         </TitleText>
+  //       </Div>
 
-        <FooterContainer web={11}>
-          <Div web={6} direction='column'
-            style={{justifyContent:'flex-end', alignItems:'flex-start'}}>              
-            <FooterTitle>
-              Virgil
-            </FooterTitle>
-            <BodyText style={{color:'#FFF'}}>
-              2020 © Virgil Technologies
-            </BodyText>
-          </Div>
-          <Div web={6} direction='column'
-            style={{justifyContent:'flex-end', alignItems:'flex-end'}}>              
-            <BodyText style={{color:'#FFF'}}>
-              Terms of Service
-            </BodyText>
-            <Link to='/privacy' style={{textDecoration: 'none'}}>
-              <BodyText style={{color:'#FFF'}}>
-                Privacy Policy
-              </BodyText>
-            </Link>
-          </Div>
-        </FooterContainer>
+  //       <FooterContainer web={11}>
+  //         <Div web={6} direction='column'
+  //           style={{justifyContent:'flex-end', alignItems:'flex-start'}}>              
+  //           <FooterTitle>
+  //             Virgil
+  //           </FooterTitle>
+  //           <BodyText style={{color:'#FFF'}}>
+  //             2020 © Virgil Technologies
+  //           </BodyText>
+  //         </Div>
+  //         <Div web={6} direction='column'
+  //           style={{justifyContent:'flex-end', alignItems:'flex-end'}}>              
+  //           <BodyText style={{color:'#FFF'}}>
+  //             Terms of Service
+  //           </BodyText>
+  //           <Link to='/privacy' style={{textDecoration: 'none'}}>
+  //             <BodyText style={{color:'#FFF'}}>
+  //               Privacy Policy
+  //             </BodyText>
+  //           </Link>
+  //         </Div>
+  //       </FooterContainer>
 
-      </Div>
-    )
-  }
+  //     </Div>
+  //   )
+  // }
 
   return (
     <Div web={12} style={{backgroundColor:'#000', flexDirection:'column', alignItems:'center', minHeight:'100vh'}}>
@@ -131,10 +153,10 @@ export default function DashboardPage() {
           <Div web={10} mobile={11} style={{flexDirection:'column', justifyContent:'center', 
           alignItems: mobileView ? 'center' : 'flex-start'}}>
             <TitleText style={{color:'#FFF', marginBottom: mobileView ? '40px' : ''}}>
-              Thanks for participating
+              Refer to Win
             </TitleText>
 
-            {/* <Div web={12} mobile={12} style={{flexDirection:mobileView ? 'column' : 'row', paddingBottom: '15px'}}>
+            <Div web={12} mobile={12} style={{flexDirection:mobileView ? 'column' : 'row', paddingBottom: '15px'}}>
 
               <Div style={{flexDirection:'column', marginRight: mobileView ? '' : '40px', marginBottom: mobileView ? '15px' : ''}}>
                 <Div style={{height:'20px',margin:'10px 0px 10px 0px'}}>
@@ -178,19 +200,20 @@ export default function DashboardPage() {
                 </BodyText>
               </Div>
 
-            </Div> */}
+            </Div>
 
             <BodyText style={{color:'#FFF', paddingLeft: mobileView ? '50px' : '', paddingRight: mobileView ? '50px' : '', display: mobileView ? '' : ''}}>
-              The Virgil giveaway is closed to new entries.
+              {/* The Virgil giveaway is closed to new entries.
               We will randomly select the winner and make an announcement on or before Monday, May 11. Follow us{" "}
               <a target="_blank" rel="noopener noreferrer" style={{color:'#FFF', textDecoration: 'underline'}}
                 href='https://www.instagram.com/virgil.card/'>
                 @virgil.card
               </a>
-              {" "}for updates.
-              {/* Thanks for requesting to be among our earliest users.<br></br>
-              Refer friends to request invites for more entries to our giveaway.<br></br>
-              The winner will choose to receive one of the above items. Details below. */}
+              {" "}for updates. */}
+              Thanks for requesting to be among our earliest users.<br></br>
+              Refer friends to earn more entries to our giveaway.<br></br>
+              The winner will get to choose one of the above items.<br></br>
+              Details below.
             </BodyText>
           </Div>
         </Div>
@@ -200,9 +223,9 @@ export default function DashboardPage() {
           paddingTop: mobileView ? '30px' :''}}>
 
 
-          {/* <Div web={10} mobile={12} style={{flexDirection:'column', justifyContent:'center', paddingBottom: mobileView ? '30px' : '30px'}}>
+          <Div web={10} mobile={12} style={{flexDirection:'column', justifyContent:'center', paddingBottom: mobileView ? '30px' : '30px'}}>
             <TitleText style={{color:'#FFF'}}>
-              Thanks for participating
+              Your Referral Link
             </TitleText>
               <BodyText style={{color:'#FFF'}}>
                 
@@ -213,11 +236,11 @@ export default function DashboardPage() {
             {mobileView && <BodyText style={{color:'#FFF'}}>
               <a style={{color:'#FFF',textDecoration:'underline'}} href={`sms:&body=virgilcard.com%2F%3Fref%3D${refData.refer_id}`}>Send A Text</a>
             </BodyText>}
-          </Div> */}
+          </Div>
 
           { refData.top_five && <Div web={10} mobile={10} style={{flexDirection:'column', justifyContent:'center'}}>
             <TitleText style={{color:'#FFF'}}>
-              Final Rankings
+              Leaderboard
             </TitleText>
               <table>
               <thead>
@@ -318,7 +341,7 @@ export default function DashboardPage() {
             </Div>
           </Div>
 
-          {/* <Div web={12} mobile={11} style={{flexDirection:'column',
+          <Div web={12} mobile={11} style={{flexDirection:'column',
             justifyContent:'center', alignItems: 'center', height:(mobileView) ? '' : '15vh'}}>
             <Div web={11} mobile={10} style={{flexDirection:'column', justifyContent:'center'}}>
               <SubText>
@@ -334,7 +357,7 @@ export default function DashboardPage() {
                 <a href='/sweepstakes-rules' style={{textDecoration:'underline', color:'#000'}}>See Terms and Conditions</a>
               </SubText>
             </Div>
-          </Div> */}
+          </Div>
 
         </Div>
       </Div>
@@ -488,21 +511,21 @@ const BodyText = styled.h3`
     text-align: center;
   `}
 `
-// const SubText = styled(BodyText)`
-//   font-size: 14px;
-//   margin: 0px;
-//   line-height: 18px;
-//   ${media.md`
-//     line-height: 24px;
-//     margin-bottom: 5px;
-//   `}
-// `
+const SubText = styled(BodyText)`
+  font-size: 14px;
+  margin: 0px;
+  line-height: 18px;
+  ${media.md`
+    line-height: 24px;
+    margin-bottom: 5px;
+  `}
+`
 
-// const Image = styled(Div)`
-//   background-image: url(${props => props.src});
-//   background-size: contain;
-//   background-position: center;
-//   background-repeat: no-repeat;
-//   height: 100%;
-//   width: 100%;
-// `
+const Image = styled(Div)`
+  background-image: url(${props => props.src});
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100%;
+  width: 100%;
+`
