@@ -20,8 +20,8 @@ provider:
   #   subnetIds:
   #     - subnet-0a9718a7c75954e42
   #     - subnet-06c1f047b244a7da8
-  environment:
-    DYNAMO_DB_TABLE: virgil-users
+  # environment:
+  #   DYNAMO_DB_TABLE: virgil-users
   iamRoleStatements:
     - Effect: Allow
       Action:
