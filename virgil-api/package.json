@@ -1,0 +1,24 @@
+{
+  "name": "virgil-lambda-api",
+  "version": "1.0.0",
+  "description": "Virgil serverless backend",
+  "main": "handler.js",
+  "scripts": {
+    "start": "sls offline start --skipCacheInvalidation",
+    "test": "jest",
+    "mock": "sls invoke local --function create --path mocks/create-event.json && sls invoke local --function get --path mocks/get-event.json"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^26.0.1",
+    "serverless-bundle": "^1.7.0",
+    "serverless-dotenv-plugin": "^2.4.2",
+    "serverless-offline": "^6.3.0"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.686.0",
+    "uuid": "^8.1.0"
+  }
+}
