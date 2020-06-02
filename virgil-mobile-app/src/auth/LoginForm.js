@@ -23,8 +23,7 @@ const LoginForm = ({ navigation }) => {
   const placeholder1 = '+1-800-CASH-NOW'
   const placeholder2 = 'hunter2'
 
-  const onSubmit = (event) => {
-    event.preventDefault()
+  const onSubmit = () => {
 
     // validate
     const validatedPhoneInput = phoneInput
@@ -60,7 +59,6 @@ const LoginForm = ({ navigation }) => {
         <View style={styles.textInputContainer}>
           <TextInput style={styles.textInput}
             returnKeyType='send'
-            // onSubmitEditing={onSubmit}
             placeholder={placeholder1}
             onChangeText={(text) => setPhoneInput(text)}
             value={phoneInput}
@@ -70,7 +68,7 @@ const LoginForm = ({ navigation }) => {
         <View style={styles.textInputContainer}>
           <TextInput style={styles.textInput}
             returnKeyType='send'
-            // onSubmitEditing={onSubmit}
+            onSubmitEditing={onSubmit}
             placeholder={placeholder2}
             onChangeText={(text) => setPasswordInput(text)}
             value={passwordInput}
