@@ -3,23 +3,23 @@ import React, { useState, useEffect } from 'react'
 import { ActivityIndicator, View, Text } from 'react-native'
 
 import { SafeAreaProvider } from 'react-native-safe-area-context'
-import { AppContext } from "./src/libs/context-lib"
+import { AppContext } from "./libs/context-lib"
 
 import * as Font from 'expo-font'
 
 // Redux imports
 import { Provider } from 'react-redux'
-import store from './src/redux/store'
+import store from './redux/store'
 
 // Auth imports
 import Amplify from 'aws-amplify'
-import AmplifyConfig from './src/utils/amplify-config'
+import AmplifyConfig from './utils/amplify-config'
 Amplify.configure(AmplifyConfig)
 import { Auth } from 'aws-amplify'
 
 // custom components
-import AppNavigator from './src/navigation/AppNavigator'
-import AuthNavigator from './src/navigation/AuthNavigator'
+import AppNavigator from './navigation/AppNavigator'
+import AuthNavigator from './navigation/AuthNavigator'
 
 console.disableYellowBox = true
 
@@ -44,8 +44,8 @@ const App = () => {
 
   async function LoadFonts() {
     Font.loadAsync({
-      'gill-reg': require('./src/static/fonts/GillSans.ttf'),
-      'gill-semibold': require('./src/static/fonts/GillSans-SemiBold.ttf'),
+      'gill-reg': require('./static/fonts/GillSans.ttf'),
+      'gill-semibold': require('./static/fonts/GillSans-SemiBold.ttf'),
     })
     .then(res => {
       console.log('Successfully loaded fonts')
