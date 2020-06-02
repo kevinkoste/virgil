@@ -14,14 +14,6 @@ provider:
   name: aws
   runtime: nodejs12.x
   stage: dev
-  # vpc:
-  #   securityGroupIds:
-  #     - sg-0abef7ae0eb455888
-  #   subnetIds:
-  #     - subnet-0a9718a7c75954e42
-  #     - subnet-06c1f047b244a7da8
-  # environment:
-  #   DYNAMO_DB_TABLE: virgil-users
   iamRoleStatements:
     - Effect: Allow
       Action:
@@ -33,29 +25,57 @@ provider:
         - dynamodb:UpdateItem
         - dynamodb:DeleteItem
       Resource: "arn:aws:dynamodb:us-east-1:563704355765:table/virgil-users"
+    - Effect: Allow
+      Action:
+        - dynamodb:DescribeTable
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource: "arn:aws:dynamodb:us-east-1:563704355765:table/virgil-cards"
+    - Effect: Allow
+      Action:
+        - dynamodb:DescribeTable
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource: "arn:aws:dynamodb:us-east-1:563704355765:table/virgil-transactions"
+  # vpc:
+  #   securityGroupIds:
+  #     - sg-0abef7ae0eb455888
+  #   subnetIds:
+  #     - subnet-0a9718a7c75954e42
+  #     - subnet-06c1f047b244a7da8
+  # environment:
+  #   DYNAMO_DB_TABLE: virgil-users
 
 functions:
-
-  create:
-    handler: handler.create
+  signUp: # function writes new userId (cognito id) after successful sign-up
+    handler: handler.signUp
     events:
       - http:
-          path: notes
+          path: signup
           method: post
           cors: true
           authorizer: aws_iam
-
-  get:
-    handler: handler.get
+  webhook: # function handles all webhook logic based on "event" header
+    handler: handler.webhook
     events:
       - http:
-          path: notes/{id}
-          method: get
+          path: listener
+          method: post
           cors: true
-          authorizer: aws_iam
-
 
 # Create our resources with separate CloudFormation templates
 resources:
   # API Gateway Errors
   - ${file(resources/api-gateway-errors.yml)}
+
+custom:
+  bundle:
+    linting: false 

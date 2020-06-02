@@ -6,7 +6,10 @@
   "scripts": {
     "start": "sls offline start --skipCacheInvalidation",
     "test": "jest",
-    "mock": "sls invoke local --function create --path mocks/create-event.json && sls invoke local --function get --path mocks/get-event.json"
+    "mock": "npm run mock-signUp && npm run mock-webhook-card-link && npm run mock-webhook-transaction-auth",
+    "mock-signUp": "sls invoke local --function signUp --path mocks/signUp-event.json",
+    "mock-webhook-card-link": "sls invoke local --function webhook --path mocks/webhook-card-link-event.json",
+    "mock-webhook-transaction-auth": "sls invoke local --function webhook --path mocks/webhook-transaction-auth-event.json"
   },
   "keywords": [],
   "author": "",

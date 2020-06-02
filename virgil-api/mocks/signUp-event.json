@@ -1,0 +1,8 @@
+{
+  "body": "{\"key\":\"value\",\"bob\":\"loblaw\"}",
+  "requestContext": {
+    "identity": {
+      "cognitoIdentityId": "MOCK-USER2"
+    }
+  }
+}
