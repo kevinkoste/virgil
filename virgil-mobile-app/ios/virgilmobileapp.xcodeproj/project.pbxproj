@@ -280,10 +280,10 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "fake.fake.fake";
-				PRODUCT_NAME = fake;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.virgilcard.app";
+				PRODUCT_NAME = app;
 				VERSIONING_SYSTEM = "apple-generic";
-				CODE_SIGN_ENTITLEMENTS = virgilmobileapp/fake.entitlements;
+				CODE_SIGN_ENTITLEMENTS = virgilmobileapp/app.entitlements;
 			};
 			name = Debug;
 		};
@@ -300,10 +300,10 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "fake.fake.fake";
-				PRODUCT_NAME = fake;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.virgilcard.app";
+				PRODUCT_NAME = app;
 				VERSIONING_SYSTEM = "apple-generic";
-				CODE_SIGN_ENTITLEMENTS = virgilmobileapp/fake.entitlements;
+				CODE_SIGN_ENTITLEMENTS = virgilmobileapp/app.entitlements;
 			};
 			name = Release;
 		};
@@ -357,9 +357,9 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
-				PRODUCT_BUNDLE_IDENTIFIER = "fake.fake.fake";
-				PRODUCT_NAME = fake;
-				CODE_SIGN_ENTITLEMENTS = virgilmobileapp/fake.entitlements;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.virgilcard.app";
+				PRODUCT_NAME = app;
+				CODE_SIGN_ENTITLEMENTS = virgilmobileapp/app.entitlements;
 			};
 			name = Debug;
 		};
@@ -406,9 +406,9 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "fake.fake.fake";
-				PRODUCT_NAME = fake;
-				CODE_SIGN_ENTITLEMENTS = virgilmobileapp/fake.entitlements;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.virgilcard.app";
+				PRODUCT_NAME = app;
+				CODE_SIGN_ENTITLEMENTS = virgilmobileapp/app.entitlements;
 			};
 			name = Release;
 		};

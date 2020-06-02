@@ -1,4 +1,4 @@
-package fake.fake.fake;
+package com.virgilcard.app;
 
 import android.os.Bundle;
 
