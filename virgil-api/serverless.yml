@@ -9,11 +9,25 @@ plugins:
   - serverless-bundle # Package our functions with Webpack
   - serverless-offline
   - serverless-dotenv-plugin # Load .env as environment variables
+  - serverless-domain-manager # Use custom domain
 
 provider:
   name: aws
   runtime: nodejs12.x
   stage: dev
+  environment:
+    SERVICE_NAME: ${self:service}
+    AWS_SES_ACCESS_KEY_ID: ${env:AWS_SES_ACCESS_KEY_ID}
+    AWS_SES_SECRET_ACCESS_KEY: ${env:AWS_SES_SECRET_ACCESS_KEY}
+    AWS_SES_REGION: ${env:AWS_SES_REGION}
+    GOOGLE_SHEET_ID_EMAILS: ${env:GOOGLE_SHEET_ID_EMAILS}
+
+  # vpc:
+  #   securityGroupIds:
+  #     - sg-0abef7ae0eb455888
+  #   subnetIds:
+  #     - subnet-0a9718a7c75954e42
+  #     - subnet-06c1f047b244a7da8
   iamRoleStatements:
     - Effect: Allow
       Action:
@@ -45,37 +59,74 @@ provider:
         - dynamodb:UpdateItem
         - dynamodb:DeleteItem
       Resource: "arn:aws:dynamodb:us-east-1:563704355765:table/virgil-transactions"
-  # vpc:
-  #   securityGroupIds:
-  #     - sg-0abef7ae0eb455888
-  #   subnetIds:
-  #     - subnet-0a9718a7c75954e42
-  #     - subnet-06c1f047b244a7da8
-  # environment:
-  #   DYNAMO_DB_TABLE: virgil-users
 
 functions:
-  signUp: # function writes new userId (cognito id) after successful sign-up
-    handler: handler.signUp
+  hello:
+    handler: functions/hello.main
+    events:
+      - http:
+          path: /
+          method: get
+          cors: true
+
+  # function writes new userId (Cognito ID) after successful mobile app sign-up
+  postSignUp:
+    handler: functions/postSignUp.main
     events:
       - http:
           path: signup
           method: post
           cors: true
           authorizer: aws_iam
-  webhook: # function handles all webhook logic based on "event" header
-    handler: handler.webhook
+
+  # function writes new email to waitlist after website sign-up
+  postWaitlistSignUp:
+    handler: functions/postWaitlistSignUp.main
     events:
       - http:
-          path: listener
+          path: waitlist
           method: post
           cors: true
 
-# Create our resources with separate CloudFormation templates
+
+  # function gets and returns all transactions for an authenticated user based on userId
+  getTransactionsByUser:
+    handler: functions/getTransactionsByUser.main
+    events:
+      - http:
+          path: transactions
+          method: get
+          cors: true
+          authorizer: aws_iam
+
+
+  # function handles all Fidel webhook logic based on "event" header
+  webhookFidel: 
+    handler: functions/webhookFidel.main
+    events:
+      - http:
+          path: webhook
+          method: post
+          cors: true
+
+
+# Create resources with separate CloudFormation templates
 resources:
   # API Gateway Errors
   - ${file(resources/api-gateway-errors.yml)}
 
 custom:
-  bundle:
-    linting: false 
+  # disable linting on bundle
+  bundle: 
+    linting: false
+
+  # configure custom domains for each stage
+  stage: ${opt:stage, self:provider.stage} 
+  domains: 
+    staging: staging-api.virgilcard.com
+    dev: dev-api.virgilcard.com
+  customDomain:
+    domainName: ${self:custom.domains.${self:custom.stage}}
+    basePath: ''
+    stage: "${self:custom.stage}"
+    createRoute53Record: true

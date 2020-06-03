@@ -1,9 +1,0 @@
-{
-  "headers": "{\"event\":\"fidel-transaction-auth\"}",
-  "body": "{\"id\":\"mock-transaction-id\",\"card\":{\"id\":\"mock-card-id\"},\"amount\":\"mock-transaction-amount\"}",
-  "requestContext": {
-    "identity": {
-      "cognitoIdentityId": "MOCK-USER2"
-    }
-  }
-}

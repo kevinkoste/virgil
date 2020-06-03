@@ -3,6 +3,8 @@
 .webpack
 .webpack/*
 .DS_Store
+.archive
+googleapis-secrets
 
 # package directories
 node_modules
