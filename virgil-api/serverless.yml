@@ -121,7 +121,8 @@ custom:
 
   # configure custom domains for each stage
   stage: ${opt:stage, self:provider.stage} 
-  domains: 
+  domains:
+    prod: api.virgilcard.com
     staging: staging-api.virgilcard.com
     dev: dev-api.virgilcard.com
   customDomain:
