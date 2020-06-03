@@ -9,10 +9,10 @@ import dynamoDb from "../libs/dynamodb-lib"
 export const main = handler(async (event, context) => {
 
   // parse headers and body
-  const requestHeaders = JSON.parse(event.headers)
-  const requestBody = JSON.parse(event.body)
+  // const requestHeaders = JSON.parse(event.headers)
+  // const requestBody = JSON.parse(event.body)
 
-  switch (requestHeaders.event) {
+  switch (event.headers.event) {
 
     // new linked card event
     case 'fidel-card-linked':
@@ -20,10 +20,10 @@ export const main = handler(async (event, context) => {
         await dynamoDb.put({
           TableName: 'virgil-cards',
           Item: {
-            cardId: requestBody.id,
-            accountId: requestBody.accountId,
+            cardId: event.body.id,
+            accountId: event.body.accountId,
             createdAt: Date.now(),
-            fidelEvent: requestBody
+            fidelEvent: event.body
           }
         })
         return { message: "success" }
@@ -37,11 +37,11 @@ export const main = handler(async (event, context) => {
         await dynamoDb.put({
           TableName: 'virgil-transactions',
           Item: {
-            transactionId: requestBody.id,
-            accountId: requestBody.accountId,
-            cardId: requestBody.card.id,
+            transactionId: event.body.id,
+            accountId: event.body.accountId,
+            cardId: event.body.card.id,
             createdAt: Date.now(),
-            fidelEvent: requestBody
+            fidelEvent: event.body
           }
         })
         return { message: "success" }
