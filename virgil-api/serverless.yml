@@ -21,7 +21,6 @@ provider:
     AWS_SES_SECRET_ACCESS_KEY: ${env:AWS_SES_SECRET_ACCESS_KEY}
     AWS_SES_REGION: ${env:AWS_SES_REGION}
     GOOGLE_SHEET_ID_EMAILS: ${env:GOOGLE_SHEET_ID_EMAILS}
-
   # vpc:
   #   securityGroupIds:
   #     - sg-0abef7ae0eb455888

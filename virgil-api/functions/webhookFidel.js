@@ -8,10 +8,7 @@ import dynamoDb from "../libs/dynamodb-lib"
  */
 export const main = handler(async (event, context) => {
 
-  // parse headers and body
-  // const requestHeaders = JSON.parse(event.headers)
-  // const requestBody = JSON.parse(event.body)
-
+  // handle request to webhook based on custom "event" header
   switch (event.headers.event) {
 
     // new linked card event
