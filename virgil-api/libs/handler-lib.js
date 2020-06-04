@@ -2,6 +2,14 @@ import * as debug from "./debug-lib"
 
 export default function handler(lambda) {
   return function (event, context) {
+
+    // Immediate response for warm-up events
+    if (event.source === 'serverless-plugin-warmup') {
+      console.log('Warm-up event')
+      return [200, { message: 'Lambda is warm!' }]
+    }
+
+    // Default handler logic
     return Promise.resolve()
       // Start debugger
       .then(() => debug.init(event, context))

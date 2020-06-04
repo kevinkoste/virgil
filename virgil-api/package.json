@@ -2,10 +2,13 @@
   "name": "virgil-lambda-api",
   "version": "1.0.0",
   "description": "Virgil serverless backend",
-  "main": "handler.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kevinkoste/virgil-serverless-api.git"
+  },
   "scripts": {
-    "start": "sls offline start --skipCacheInvalidation",
-    "test": "jest",
+    "start": "serverless offline start --skipCacheInvalidation",
+    "test": "serverless-bundle test",
     "mock": "npm run mock-postSignUp && npm run mock-postWaitlistSignUp && npm run mock-webhookFidel-card-link && npm run mock-webhookFidel-transaction-auth && npm run mock-getTransactionsByUser",
     "mock-postSignUp": "sls invoke local --function postSignUp --path mocks/postSignUp.json",
     "mock-postWaitlistSignUp": "sls invoke local --function postWaitlistSignUp --path mocks/postWaitlistSignUp.json",
@@ -16,16 +19,21 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "dependencies": {
+    "googleapis": "^52.0.0",
+    "uuid": "^8.1.0"
+  },
   "devDependencies": {
+    "aws-sdk": "^2.686.0",
+    "axios": "^0.19.2",
     "jest": "^26.0.1",
     "serverless-bundle": "^1.7.0",
     "serverless-domain-manager": "^4.1.1",
     "serverless-dotenv-plugin": "^2.4.2",
-    "serverless-offline": "^6.3.0"
+    "serverless-offline": "^6.3.0",
+    "serverless-plugin-warmup": "^4.9.0"
   },
-  "dependencies": {
-    "aws-sdk": "^2.686.0",
-    "googleapis": "^52.0.0",
-    "uuid": "^8.1.0"
+  "jest": {
+    "testRegex": "(/tests/.*|(\\.|/)(test|spec))\\.[jt]sx?$"
   }
 }

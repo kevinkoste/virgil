@@ -1,65 +1,75 @@
 # Serverless config for virgil api
 
-service: virgil-lambda-api
-
+service: virgil-api
 org: kevinkoste
-app: virgil-lambda-api-app
 
 plugins:
   - serverless-bundle # Package our functions with Webpack
   - serverless-offline
   - serverless-dotenv-plugin # Load .env as environment variables
   - serverless-domain-manager # Use custom domain
+  - serverless-plugin-warmup # add warmup: true to keep functions warm
 
 provider:
   name: aws
   runtime: nodejs12.x
   stage: dev
+
   environment:
+    # service name for child functions
     SERVICE_NAME: ${self:service}
+    # AWS SES
+    AWS_SES_VERIFIED_ADDRESS_ARN: ${env:AWS_SES_VERIFIED_ADDRESS_ARN}
     AWS_SES_ACCESS_KEY_ID: ${env:AWS_SES_ACCESS_KEY_ID}
     AWS_SES_SECRET_ACCESS_KEY: ${env:AWS_SES_SECRET_ACCESS_KEY}
     AWS_SES_REGION: ${env:AWS_SES_REGION}
+    # Google API
     GOOGLE_SHEET_ID_EMAILS: ${env:GOOGLE_SHEET_ID_EMAILS}
+    # DynamoDB table names based on stage
+    USERS_TABLE_NAME: ${self:custom.usersTableName}
+    CARDS_TABLE_NAME: ${self:custom.cardsTableName}
+    TRANSACTIONS_TABLE_NAME: ${self:custom.transactionsTableName}
+
+  iamRoleStatements:
+    # serverless-keep-warm role
+    - Effect: 'Allow'
+      Action: 'lambda:InvokeFunction'
+      Resource: "*"
+    # DynamoDB role
+    - Effect: Allow
+      Action:
+        - dynamodb:DescribeTable
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource:
+        - Fn::GetAtt: [ UsersTable, Arn ]
+        - Fn::GetAtt: [ CardsTable, Arn ]
+        - Fn::Join: [ "/", [ Fn::GetAtt: [ CardsTable, Arn ], "index", "userId-index" ]]
+        - Fn::GetAtt: [ TransactionsTable, Arn ]
+        - Fn::Join: [ "/", [ Fn::GetAtt: [ TransactionsTable, Arn ], "index", "userId-index" ]]
+
+        # - { "Fn::GetAtt": ["UsersTable", "Arn" ] }
+        # - { "Fn::GetAtt": ["CardsTable", "Arn" ] }
+        # - { "Fn::Join": [ "/", [ { "Fn::GetAtt": ["CardsTable", "Arn"] }, "index", "userId-index" ]]}
+        # - { "Fn::GetAtt": ["TransactionsTable", "Arn" ] }
+        # - { "Fn::Join": [ "/", [ { "Fn::GetAtt": ["TransactionsTable", "Arn" ] }, "index", "userId-index" ]]}
+
+  # config to deploy functions in a VPC
   # vpc:
   #   securityGroupIds:
   #     - sg-0abef7ae0eb455888
   #   subnetIds:
   #     - subnet-0a9718a7c75954e42
   #     - subnet-06c1f047b244a7da8
-  iamRoleStatements:
-    - Effect: Allow
-      Action:
-        - dynamodb:DescribeTable
-        - dynamodb:Query
-        - dynamodb:Scan
-        - dynamodb:GetItem
-        - dynamodb:PutItem
-        - dynamodb:UpdateItem
-        - dynamodb:DeleteItem
-      Resource: "arn:aws:dynamodb:us-east-1:563704355765:table/virgil-users"
-    - Effect: Allow
-      Action:
-        - dynamodb:DescribeTable
-        - dynamodb:Query
-        - dynamodb:Scan
-        - dynamodb:GetItem
-        - dynamodb:PutItem
-        - dynamodb:UpdateItem
-        - dynamodb:DeleteItem
-      Resource: "arn:aws:dynamodb:us-east-1:563704355765:table/virgil-cards"
-    - Effect: Allow
-      Action:
-        - dynamodb:DescribeTable
-        - dynamodb:Query
-        - dynamodb:Scan
-        - dynamodb:GetItem
-        - dynamodb:PutItem
-        - dynamodb:UpdateItem
-        - dynamodb:DeleteItem
-      Resource: "arn:aws:dynamodb:us-east-1:563704355765:table/virgil-transactions"
+
 
 functions:
+
+  # function to welcome visitors
   hello:
     handler: functions/hello.main
     events:
@@ -67,6 +77,7 @@ functions:
           path: /
           method: get
           cors: true
+    warmup: true
 
   # function writes new userId (Cognito ID) after successful mobile app sign-up
   postSignUp:
@@ -87,7 +98,6 @@ functions:
           method: post
           cors: true
 
-
   # function gets and returns all transactions for an authenticated user based on userId
   getTransactionsByUser:
     handler: functions/getTransactionsByUser.main
@@ -97,7 +107,7 @@ functions:
           method: get
           cors: true
           authorizer: aws_iam
-
+    warmup: true
 
   # function handles all Fidel webhook logic based on "event" header
   webhookFidel: 
@@ -107,17 +117,28 @@ functions:
           path: webhook
           method: post
           cors: true
+    warmup: true
 
 
-# Create resources with separate CloudFormation templates
 resources:
   # API Gateway Errors
   - ${file(resources/api-gateway-errors.yml)}
+  # DynamoDB
+  - ${file(resources/dynamodb-tables.yml)}
+  # Cognito
+  - ${file(resources/cognito-user-pool.yml)}
+  - ${file(resources/cognito-identity-pool.yml)}
 
 custom:
+
   # disable linting on bundle
   bundle: 
     linting: false
+
+  # generate dynamodb table names based on stage
+  usersTableName: ${self:custom.stage}-virgil-users
+  cardsTableName: ${self:custom.stage}-virgil-cards
+  transactionsTableName: ${self:custom.stage}-virgil-transactions
 
   # configure custom domains for each stage
   stage: ${opt:stage, self:provider.stage} 

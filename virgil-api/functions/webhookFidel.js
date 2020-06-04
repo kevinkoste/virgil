@@ -8,6 +8,9 @@ import dynamoDb from "../libs/dynamodb-lib"
  */
 export const main = handler(async (event, context) => {
 
+  // somehow confirm that event.body needs to be parsed, behavior is unpredictable
+  const requestBody = JSON.parse(event.body)
+
   // handle request to webhook based on custom "event" header
   switch (event.headers.event) {
 
@@ -15,35 +18,50 @@ export const main = handler(async (event, context) => {
     case 'fidel-card-linked':
       try {
         await dynamoDb.put({
-          TableName: 'virgil-cards',
+          TableName: process.env.CARDS_TABLE_NAME,
           Item: {
-            cardId: event.body.id,
-            accountId: event.body.accountId,
+            cardId: requestBody.id,
+            accountId: requestBody.accountId,
             createdAt: Date.now(),
-            fidelEvent: event.body
+            fidelEvent: requestBody
           }
         })
         return { message: "success" }
-      } catch {
-        throw new Error("Unable to put to cards table")
+      } catch (err) {
+        // throw lots of useful information for debugging
+        throw { message: err, item: {
+          cardId: requestBody.id,
+          accountId: requestBody.accountId,
+          createdAt: Date.now(),
+          fidelEvent: requestBody
+        }}
+        // throw new Error("Unable to put to cards table")
       }
 
     // new transaction authorization event
     case 'fidel-transaction-auth':
       try {
         await dynamoDb.put({
-          TableName: 'virgil-transactions',
+          TableName: process.env.TRANSACTIONS_TABLE_NAME,
           Item: {
-            transactionId: event.body.id,
-            accountId: event.body.accountId,
-            cardId: event.body.card.id,
+            transactionId: requestBody.id,
+            accountId: requestBody.accountId,
+            cardId: requestBody.card.id,
             createdAt: Date.now(),
-            fidelEvent: event.body
+            fidelEvent: requestBody
           }
         })
         return { message: "success" }
-      } catch {
-        throw new Error("Unable to put to transactions table")
+      } catch (err) {
+        // throw lots of useful information for debugging
+        throw { message: err, item: {
+          transactionId: requestBody.id,
+          accountId: requestBody.accountId,
+          cardId: requestBody.card.id,
+          createdAt: Date.now(),
+          fidelEvent: requestBody
+        }}
+        // throw new Error("Unable to put to transactions table")
       }
 
     default:

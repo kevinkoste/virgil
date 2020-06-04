@@ -8,7 +8,7 @@ import dynamoDb from "../libs/dynamodb-lib";
 export const main = handler(async (event, context) => {
   try {
     await dynamoDb.put({
-      TableName: 'virgil-users',
+      TableName: process.env.USERS_TABLE_NAME,
       Item: {
         userId: event.requestContext.identity.cognitoIdentityId,
         createdAt: Date.now()
