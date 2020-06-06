@@ -1,15 +1,23 @@
 // React/Redux imports
 import React, { useRef } from 'react'
 import { View, Text, ScrollView, Animated, TouchableOpacity } from 'react-native'
-import { useSelector } from 'react-redux'
 import SafeAreaView from 'react-native-safe-area-view'
+
+import { useSelector } from 'react-redux'
+import { useAppContext } from "../libs/context-lib"
+
 
 import styles from '../styles/ScreenStyles'
 import AccountTile from '../components/AccountTile'
 import BalanceBar from '../components/BalanceBar'
 import AskUsTile from '../components/AskUsTile'
 
+import { Auth } from 'aws-amplify'
+
 export default function AccountScreen({ route, navigation }) {
+
+  // unauthenticate user on logout
+  const { setUserAuthenticated } = useAppContext()
 
   const name = useSelector(state => state.name)
 
@@ -23,6 +31,24 @@ export default function AccountScreen({ route, navigation }) {
     outputRange: [maxHeight, minHeight],
     extrapolate: 'clamp'
   })
+
+
+  const handleGoToExperience = () => {
+    navigation.navigate('Experience')
+  }
+
+  const handleCardLink = () => {
+    navigation.navigate('PlaidLink')
+  }
+
+  const handleLogOut = () => {
+    Auth.signOut().then(res => {
+      console.log('Successfully signed user out')
+      setUserAuthenticated(false)
+    }).catch(err => {
+      alert('Unable to log out. Please try again later.')
+    })
+  }
 
   return (
     <SafeAreaView style={styles.screenContainer} forceInset={{ bottom: 'never' }}>
@@ -55,15 +81,20 @@ export default function AccountScreen({ route, navigation }) {
 
           <TouchableOpacity
             style={{justifyContent:'center', alignItems:'center', height:50}}
-            onPress = { () => {navigation.navigate('Experience')} }>
+            onPress = {handleGoToExperience}>
               <Text>Go To Experience</Text>
           </TouchableOpacity>
 
+          <TouchableOpacity
+            style={{justifyContent:'center', alignItems:'center', height:50}}
+            onPress = {handleCardLink}>
+              <Text>Link a Card</Text>
+          </TouchableOpacity>
 
           <TouchableOpacity
             style={{justifyContent:'center', alignItems:'center', height:50}}
-            onPress = { () => {navigation.navigate('PlaidLink')} }>
-              <Text>Link a Card</Text>
+            onPress = {handleLogOut}>
+              <Text>Log Out</Text>
           </TouchableOpacity>
 
         </View>

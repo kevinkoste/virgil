@@ -13,7 +13,7 @@ import store from './redux/store'
 
 // Auth imports
 import Amplify from 'aws-amplify'
-import AmplifyConfig from './utils/amplify-config'
+import AmplifyConfig from './config/amplify.config'
 Amplify.configure(AmplifyConfig)
 import { Auth } from 'aws-amplify'
 
@@ -21,7 +21,7 @@ import { Auth } from 'aws-amplify'
 import AppNavigator from './navigation/AppNavigator'
 import AuthNavigator from './navigation/AuthNavigator'
 
-console.disableYellowBox = true
+// console.disableYellowBox = true
 
 const App = () => {
 
@@ -36,8 +36,7 @@ const App = () => {
       setUserAuthenticated(true)
     })
     .catch(err => {
-      console.log('No current user')
-      console.log(err.message)
+      console.log('No authenticated user session found')
     })
     setAuthPending(false)
   }
@@ -51,8 +50,8 @@ const App = () => {
       console.log('Successfully loaded fonts')
     })
     .catch(err => {
-      console.log('Unable to load fonts')
-      console.log(err.message)
+      console.log('Unable to load fonts:')
+      console.log(err)
     })
     setFontPending(false)
   }
@@ -61,8 +60,8 @@ const App = () => {
   useEffect(() => {
 
     // potentially do other stuff like register for push notifications, fetch data, etc
-    LoadAuth()
     LoadFonts()
+    LoadAuth()
 
   }, [])
 

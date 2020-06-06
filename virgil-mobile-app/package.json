@@ -31,7 +31,7 @@
     "react-native-gesture-handler": "~1.6.0",
     "react-native-modal": "^11.5.4",
     "react-native-picker-select": "^6.5.0",
-    "react-native-plaid-link-sdk": "^3.3.2",
+    "react-native-plaid-link-sdk": "3.1.2",
     "react-native-reanimated": "~1.7.0",
     "react-native-safe-area-context": "0.7.3",
     "react-native-safe-area-view": "^1.0.0",

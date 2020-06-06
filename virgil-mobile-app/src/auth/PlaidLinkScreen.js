@@ -6,26 +6,31 @@ import SafeAreaView from 'react-native-safe-area-view'
 // Custom imports
 import styles from '../styles/LandingScreen.styles'
 
-// Plaid Link
-import axios from 'axios'
+// Libs
 import PlaidLink from 'react-native-plaid-link-sdk'
-import { PLAID_SERVICE_ADDRESS, PLAID_PUBLIC_KEY, PLAID_ENV, PLAID_PRODUCTS } from 'react-native-dotenv'
+import { PLAID_PUBLIC_KEY, PLAID_ENV } from 'react-native-dotenv'
+import { PostPlaidToken } from '../services/api'
 
 
 export default function PlaidLinkScreen({ navigation }) {
 
-  const onSuccess = (token, metadata) => {
-    axios.post(PLAID_SERVICE_ADDRESS + '/plaid', {
-      public_token: token,
-      metadata: metadata
-    }).then(response => {
-      console.log(response.data)
-    }).catch(error => {
-      console.log(error)
+  const onSuccess = async (token, metadata) => {
+
+    PostPlaidToken(token, metadata).then(res => {
+      console.log(res)
+      // perhaps trigger fetch transactions
+      navigation.navigate('Main')
+    }).catch(err => {
+      console.log(err)
+      alert('Unable to save your response. Please try again later.')
+      navigation.navigate('Main')
     })
+
   }
 
-  const onExit = () => { navigation.navigate('Main') }
+  const onExit = () => {
+    navigation.navigate('Main')
+  }
 
   return (
     <SafeAreaView
@@ -50,7 +55,7 @@ export default function PlaidLinkScreen({ navigation }) {
         publicKey={PLAID_PUBLIC_KEY}
         clientName={'Virgil'}
         env={PLAID_ENV}
-        product={PLAID_PRODUCTS}
+        product={['auth','transactions']}
         onSuccess={onSuccess}
         onExit={onExit}
         componentProps={{ style: styles.button }}
@@ -59,14 +64,6 @@ export default function PlaidLinkScreen({ navigation }) {
           Link Your Card
         </Text>
       </PlaidLink>
-
-      {/* <TouchableOpacity
-        onPress={() => open()}
-        disabled={!ready}
-        style={styles.button}>
-        <Text style={styles.buttonText}>Link Your Card</Text>
-      </TouchableOpacity> */}
-
 
     </SafeAreaView>
   )

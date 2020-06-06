@@ -228,7 +228,7 @@ PODS:
   - React-jsinspector (0.61.5)
   - react-native-netinfo (5.9.2):
     - React
-  - react-native-plaid-link-sdk (3.3.2):
+  - react-native-plaid-link-sdk (3.1.2):
     - Plaid
     - React
   - react-native-safe-area-context (0.7.3):
@@ -321,7 +321,7 @@ DEPENDENCIES:
   - fidel-react-native (from `../node_modules/fidel-react-native`)
   - Folly (from `../node_modules/react-native/third-party-podspecs/Folly.podspec`)
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
-  - Plaid
+  - Plaid (~> 1.1.29)
   - RCTRequired (from `../node_modules/react-native/Libraries/RCTRequired`)
   - RCTTypeSafety (from `../node_modules/react-native/Libraries/TypeSafety`)
   - React (from `../node_modules/react-native/`)
@@ -536,7 +536,7 @@ SPEC CHECKSUMS:
   React-jsiexecutor: d5525f9ed5f782fdbacb64b9b01a43a9323d2386
   React-jsinspector: fa0ecc501688c3c4c34f28834a76302233e29dc0
   react-native-netinfo: cb74e17062b2af5a16a4b137f32495f241df1a8e
-  react-native-plaid-link-sdk: 61a81184e42f919cd61672dd0961a47e5ce4a256
+  react-native-plaid-link-sdk: 3a9b5791751a59ef14634731f7ec435bd091b91d
   react-native-safe-area-context: e200d4433aba6b7e60b52da5f37af11f7a0b0392
   React-RCTActionSheet: 600b4d10e3aea0913b5a92256d2719c0cdd26d76
   React-RCTAnimation: 791a87558389c80908ed06cc5dfc5e7920dfa360
@@ -569,6 +569,6 @@ SPEC CHECKSUMS:
   UMTaskManagerInterface: cb890c79c63885504ddc0efd7a7d01481760aca2
   Yoga: f2a7cd4280bfe2cca5a7aed98ba0eb3d1310f18b
 
-PODFILE CHECKSUM: 6f141a95e303a64f3a51c5706ea10a5569a58051
+PODFILE CHECKSUM: c9accea060fa6ff5b5a51cbc83cacab1726bb38f
 
 COCOAPODS: 1.9.1

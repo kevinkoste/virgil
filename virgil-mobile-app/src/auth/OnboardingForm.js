@@ -191,7 +191,6 @@ export const OnboardingFormPassword = ({ navigation }) => {
       }
     })
     .then(res => {
-      console.log(res)
       navigation.navigate('OnboardingFormVerify')
       dispatch(updateOnboardingData({ password:validatedPassword }))
     })
