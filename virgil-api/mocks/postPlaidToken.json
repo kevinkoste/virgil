@@ -1,0 +1,10 @@
+{
+  "body": {
+    "public_token": "public-sandbox-65f7cae6-c596-41f9-852b-bc6cdc3ac4b0"
+  },
+  "requestContext": {
+    "identity": {
+      "cognitoIdentityId": "MOCK-USER2"
+    }
+  }
+}

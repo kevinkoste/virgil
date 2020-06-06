@@ -1,52 +1,77 @@
 // function to be tested
-import webhookFidel from "../functions/webhookFidel"
+import { main as webhookFidel } from "../functions/webhookFidel"
 
-let mockEvent
-let mockResponse
+let event
+let context
+let expected
 
 // test fidel-card-linked event
-test('webhookFidel successfully handles fidel-card-linked event', () => {
+test('Lambda Function "webhookFidel" handles fidel-card-linked event', () => {
 
-  mockEvent = {
-    "headers": {
-      "event":"fidel-card-linked"
+  event = {
+    headers: {
+      event: "fidel-card-linked"
     },
-    "body": {
-      "id":"mock-card-id",
-      "accountId":"mock-account-id",
-      "firstNumbers":"mock-first-numbers"
-    }
+    body: {
+      id: "mock-card-id",
+      accountId: "mock-account-id",
+      firstNumbers: "mock-first-numbers"
+    },
+    pathParameters: {},
+    queryStringParameters: {}
   }
 
-  mockResponse = [
-    200,
-    { message: "success" }
-  ]
+  context = {
+    getRemainingTimeInMillis: () => 6000,
+  }
 
-  expect(webhookFidel(mockEvent)).toBe(mockResponse)
+  expected = {
+    body: "{\"message\":\"success\"}",
+    headers: {
+      "Access-Control-Allow-Credentials": true,
+      "Access-Control-Allow-Origin": "*"
+    },
+    statusCode: 200
+  }
+
+  return webhookFidel(event, context).then(received => {
+    expect(received).toMatchObject(expected)
+  })
 })
 
 // test fidel-transaction-auth event
-test('webhookFidel successfully handles fidel-transaction-auth event', () => {
+test('Lambda Function "webhookFidel" handles fidel-transaction-auth event', () => {
 
-  mockEvent = {
-    "headers": {
-      "event":"fidel-transaction-auth"
+  event = {
+    headers: {
+      event: "fidel-transaction-auth"
     },
-    "body": {
-      "id":"mock-transaction-id",
-      "accountId":"mock-account-id",
-      "card": {
-        "id":"mock-card-id"
+    body: {
+      id: "mock-transaction-id-222",
+      accountId: "mock-account-id",
+      card: {
+        id: "mock-card-id"
       },
-      "amount":"mock-transaction-amount"
-    }
+      amount: "mock-transaction-amount"
+    },
+    pathParameters: {},
+    queryStringParameters: {}
   }
 
-  mockResponse = [
-    200,
-    { message: "success" }
-  ]
+  context = {
+    getRemainingTimeInMillis: () => 6000,
+  }
 
-  expect(webhookFidel(mockEvent)).toBe(mockResponse)
+  expected = {
+    body: "{\"message\":\"success\"}",
+    headers: {
+      "Access-Control-Allow-Credentials": true,
+      "Access-Control-Allow-Origin": "*"
+    },
+    statusCode: 200
+  }
+
+  return webhookFidel(event, context).then(received => {
+    expect(received).toMatchObject(expected)
+  })
 })

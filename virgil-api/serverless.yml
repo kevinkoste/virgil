@@ -4,9 +4,9 @@ service: virgil-api
 org: kevinkoste
 
 plugins:
+  - serverless-dotenv-plugin # Load .env as environment variables
   - serverless-bundle # Package our functions with Webpack
   - serverless-offline
-  - serverless-dotenv-plugin # Load .env as environment variables
   - serverless-domain-manager # Use custom domain
   - serverless-plugin-warmup # add warmup: true to keep functions warm
 
@@ -18,17 +18,23 @@ provider:
   environment:
     # service name for child functions
     SERVICE_NAME: ${self:service}
+
     # AWS SES
     AWS_SES_VERIFIED_ADDRESS_ARN: ${env:AWS_SES_VERIFIED_ADDRESS_ARN}
     AWS_SES_ACCESS_KEY_ID: ${env:AWS_SES_ACCESS_KEY_ID}
     AWS_SES_SECRET_ACCESS_KEY: ${env:AWS_SES_SECRET_ACCESS_KEY}
     AWS_SES_REGION: ${env:AWS_SES_REGION}
+
     # Google API
     GOOGLE_SHEET_ID_EMAILS: ${env:GOOGLE_SHEET_ID_EMAILS}
+
     # DynamoDB table names based on stage
     USERS_TABLE_NAME: ${self:custom.usersTableName}
-    CARDS_TABLE_NAME: ${self:custom.cardsTableName}
-    TRANSACTIONS_TABLE_NAME: ${self:custom.transactionsTableName}
+    CARDS_TABLE_NAME: "dev-virgil-cards"
+    TRANSACTIONS_TABLE_NAME: "dev-virgil-transactions"
+
+    # CARDS_TABLE_NAME: ${self:custom.cardsTableName}
+    # TRANSACTIONS_TABLE_NAME: ${self:custom.transactionsTableName}
 
   iamRoleStatements:
     # serverless-keep-warm role
@@ -51,12 +57,6 @@ provider:
         - Fn::Join: [ "/", [ Fn::GetAtt: [ CardsTable, Arn ], "index", "userId-index" ]]
         - Fn::GetAtt: [ TransactionsTable, Arn ]
         - Fn::Join: [ "/", [ Fn::GetAtt: [ TransactionsTable, Arn ], "index", "userId-index" ]]
-
-        # - { "Fn::GetAtt": ["UsersTable", "Arn" ] }
-        # - { "Fn::GetAtt": ["CardsTable", "Arn" ] }
-        # - { "Fn::Join": [ "/", [ { "Fn::GetAtt": ["CardsTable", "Arn"] }, "index", "userId-index" ]]}
-        # - { "Fn::GetAtt": ["TransactionsTable", "Arn" ] }
-        # - { "Fn::Join": [ "/", [ { "Fn::GetAtt": ["TransactionsTable", "Arn" ] }, "index", "userId-index" ]]}
 
   # config to deploy functions in a VPC
   # vpc:
@@ -119,6 +119,17 @@ functions:
           cors: true
     warmup: true
 
+  # function handles all Fidel webhook logic based on "event" header
+  postPlaidToken: 
+    handler: functions/postPlaidToken.main
+    events:
+      - http:
+          path: plaid
+          method: post
+          cors: true
+          authorizer: aws_iam
+    warmup: true
+
 
 resources:
   # API Gateway Errors
@@ -141,7 +152,7 @@ custom:
   transactionsTableName: ${self:custom.stage}-virgil-transactions
 
   # configure custom domains for each stage
-  stage: ${opt:stage, self:provider.stage} 
+  stage: ${opt:stage, self:provider.stage}
   domains:
     prod: api.virgilcard.com
     staging: staging-api.virgilcard.com

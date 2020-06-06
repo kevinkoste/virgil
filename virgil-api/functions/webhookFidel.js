@@ -8,13 +8,19 @@ import dynamoDb from "../libs/dynamodb-lib"
  */
 export const main = handler(async (event, context) => {
 
-  // somehow confirm that event.body needs to be parsed, behavior is unpredictable
-  const requestBody = JSON.parse(event.body)
 
+  // parse body if needed; required if using Lambda Proxy Integration
+  let requestBody = {}
+  if (typeof event.body === String) {
+    requestBody = JSON.parse(event.body)
+  } else {
+    requestBody = event.body
+  }
+  
   // handle request to webhook based on custom "event" header
   switch (event.headers.event) {
 
-    // new linked card event
+    // new card linked event
     case 'fidel-card-linked':
       try {
         await dynamoDb.put({

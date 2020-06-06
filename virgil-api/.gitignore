@@ -1,9 +1,11 @@
 # manual
 .env
+.env.test
 .webpack
 .webpack/*
 .DS_Store
 .archive
+.serverless
 googleapis-secrets
 
 # package directories

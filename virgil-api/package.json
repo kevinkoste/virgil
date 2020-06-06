@@ -14,26 +14,29 @@
     "mock-postWaitlistSignUp": "sls invoke local --function postWaitlistSignUp --path mocks/postWaitlistSignUp.json",
     "mock-webhookFidel-card-link": "sls invoke local --function webhookFidel --path mocks/webhookFidel-card-link.json",
     "mock-webhookFidel-transaction-auth": "sls invoke local --function webhookFidel --path mocks/webhookFidel-transaction-auth.json",
-    "mock-getTransactionsByUser": "sls invoke local --function getTransactionsByUser --path mocks/getTransactionsByUser.json"
+    "mock-getTransactionsByUser": "sls invoke local --function getTransactionsByUser --path mocks/getTransactionsByUser.json",
+    "mock-postPlaidToken": "sls invoke local --function postPlaidToken --path mocks/postPlaidToken.json"
+
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "googleapis": "^52.0.0",
+    "plaid": "^5.1.0",
     "uuid": "^8.1.0"
   },
   "devDependencies": {
     "aws-sdk": "^2.686.0",
-    "axios": "^0.19.2",
-    "jest": "^26.0.1",
+    "serverless-dotenv-plugin": "^2.4.2",
     "serverless-bundle": "^1.7.0",
     "serverless-domain-manager": "^4.1.1",
-    "serverless-dotenv-plugin": "^2.4.2",
     "serverless-offline": "^6.3.0",
     "serverless-plugin-warmup": "^4.9.0"
   },
   "jest": {
-    "testRegex": "(/tests/.*|(\\.|/)(test|spec))\\.[jt]sx?$"
+    "setupFilesAfterEnv": [
+      "./tests/jest-preload-env.js"
+    ]
   }
 }
