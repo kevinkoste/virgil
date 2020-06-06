@@ -124,7 +124,7 @@ functions:
     handler: functions/postPlaidToken.main
     events:
       - http:
-          path: plaid
+          path: plaid/token
           method: post
           cors: true
           authorizer: aws_iam
@@ -134,11 +134,10 @@ functions:
 resources:
   # API Gateway Errors
   - ${file(resources/api-gateway-errors.yml)}
-  # DynamoDB
-  - ${file(resources/dynamodb-tables.yml)}
-  # Cognito
-  - ${file(resources/cognito-user-pool.yml)}
-  - ${file(resources/cognito-identity-pool.yml)}
+  # DynamoDB resources
+  - ${file(resources/dynamodb-resources.yml)}
+  # Cognito resources
+  - ${file(resources/cognito-resources.yml)}
 
 custom:
 
