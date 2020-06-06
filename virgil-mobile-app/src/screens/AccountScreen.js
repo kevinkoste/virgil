@@ -56,7 +56,14 @@ export default function AccountScreen({ route, navigation }) {
           <TouchableOpacity
             style={{justifyContent:'center', alignItems:'center', height:50}}
             onPress = { () => {navigation.navigate('Experience')} }>
-              <Text> Go To Experience</Text>
+              <Text>Go To Experience</Text>
+          </TouchableOpacity>
+
+
+          <TouchableOpacity
+            style={{justifyContent:'center', alignItems:'center', height:50}}
+            onPress = { () => {navigation.navigate('PlaidLink')} }>
+              <Text>Link a Card</Text>
           </TouchableOpacity>
 
         </View>

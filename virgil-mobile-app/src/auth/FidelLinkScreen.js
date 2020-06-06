@@ -7,26 +7,28 @@ import SafeAreaView from 'react-native-safe-area-view'
 import styles from '../styles/LandingScreen.styles'
 
 // Fidel
-// import { FIDEL_API_KEY, FIDEL_PROGRAM_ID } from 'react-native-dotenv'
-// import Fidel from 'fidel-react-native'
-// Fidel.setup({
-//   apiKey: FIDEL_API_KEY,
-//   programId: FIDEL_PROGRAM_ID
-// })
+import { FIDEL_API_KEY, FIDEL_PROGRAM_ID } from 'react-native-dotenv'
+import Fidel from 'fidel-react-native'
+Fidel.setup({
+  apiKey: FIDEL_API_KEY,
+  programId: FIDEL_PROGRAM_ID
+})
 
 
 export default ({ navigation }) => {
 
   const initiateCardLink = () => {
 
-    // // open fidel form
-    // Fidel.openForm((err, res) => {
-    //   if (err) {
-    //     console.error(error)
-    //   } else {
-    //     console.info(res)
-    //   }
-    // })
+    // open fidel form
+    Fidel.openForm((err, res) => {
+      if (err) {
+        console.error(error)
+      } else {
+        navigation.navigate('Main')
+        console.info(res)
+
+      }
+    })
   }
 
   return (

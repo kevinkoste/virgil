@@ -23,7 +23,9 @@ import RewardDetailScreen from '../screens/RewardDetailScreen'
 import RewardCategoryScreen from '../screens/RewardCategoryScreen'
 
 // Card Link screen
-import CardLinkScreen from '../auth/CardLinkScreen'
+// import FidelLinkScreen from '../auth/FidelLinkScreen'
+import PlaidLinkScreen from '../auth/PlaidLinkScreen'
+
 
 
 // Main Tab Navigator
@@ -87,7 +89,7 @@ export default function AppNavigator() {
 
         <RootStack.Screen name='Experience' component={ExperienceStackScreen} />
 
-        <RootStack.Screen name='CardLink' component={CardLinkScreen} />
+        <RootStack.Screen name='PlaidLink' component={PlaidLinkScreen} />
 
       </RootStack.Navigator>
     </NavigationContainer>

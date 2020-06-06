@@ -19,7 +19,7 @@
 /* Begin PBXFileReference section */
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		0731D3B524204D62009CAE85 /* Expo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Expo.plist; path = virgilmobileapp/Supporting/Expo.plist; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* virgilmobileapp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = virgilmobileapp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07F961A680F5B00A75B9A /* virgilmobileapp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = virgilmobileapp.app; path = app.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = virgilmobileapp/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = virgilmobileapp/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB21A68108700A75B9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -30,9 +30,9 @@
 		3B47C5AFCB8BDE514B7D1AC6 /* Pods-virgilmobileapp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-virgilmobileapp.debug.xcconfig"; path = "Target Support Files/Pods-virgilmobileapp/Pods-virgilmobileapp.debug.xcconfig"; sourceTree = "<group>"; };
 		8AC623DBF3A3E2CB072F81F2 /* Pods-virgilmobileapp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-virgilmobileapp.release.xcconfig"; path = "Target Support Files/Pods-virgilmobileapp/Pods-virgilmobileapp.release.xcconfig"; sourceTree = "<group>"; };
 		D43FF9D506E70904424FA7E9 /* libPods-virgilmobileapp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-virgilmobileapp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E3ABB89D1E68496EB7D95742 /* SplashScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = SplashScreen.storyboard; path = virgilmobileapp/SplashScreen.storyboard; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
-		E3ABB89D1E68496EB7D95742 /* SplashScreen.storyboard */ = {isa = PBXFileReference; name = "SplashScreen.storyboard"; path = "virgilmobileapp/SplashScreen.storyboard"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = file.storyboard; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,7 +80,6 @@
 				3B47C5AFCB8BDE514B7D1AC6 /* Pods-virgilmobileapp.debug.xcconfig */,
 				8AC623DBF3A3E2CB072F81F2 /* Pods-virgilmobileapp.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -126,6 +125,8 @@
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
+				9BDF1F2BA695EC6E80C51381 /* [CP] Embed Pods Frameworks */,
+				9E17FCF6248B12A100BD6DB4 /* Prepare For Distribution (Plaid) */,
 			);
 			buildRules = (
 			);
@@ -144,18 +145,13 @@
 			attributes = {
 				LastUpgradeCheck = 940;
 				ORGANIZATIONNAME = Facebook;
-				TargetAttributes = {
-					00E356ED1AD99517003FC87E = {
-						CreatedOnToolsVersion = 6.2;
-						TestTargetID = 13B07F861A680F5B00A75B9A;
-					};
-				};
 			};
 			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "virgilmobileapp" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -196,7 +192,45 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n../node_modules/expo-updates/scripts/create-manifest-ios.sh";
+			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n../node_modules/expo-updates/scripts/create-manifest-ios.sh\n";
+		};
+		9BDF1F2BA695EC6E80C51381 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-virgilmobileapp/Pods-virgilmobileapp-frameworks.sh",
+				"${PODS_ROOT}/Fidel/Fidel.framework",
+				"${PODS_ROOT}/Plaid/LinkKit.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Fidel.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LinkKit.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-virgilmobileapp/Pods-virgilmobileapp-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9E17FCF6248B12A100BD6DB4 /* Prepare For Distribution (Plaid) */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Prepare For Distribution (Plaid)";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "LINK_ROOT=${PODS_ROOT:+$PODS_ROOT/Plaid/ios}\ncp \"${LINK_ROOT:-$PROJECT_DIR}\"/LinkKit.framework/prepare_for_distribution.sh \"${CODESIGNING_FOLDER_PATH}\"/Frameworks/LinkKit.framework/prepare_for_distribution.sh\n\"${CODESIGNING_FOLDER_PATH}\"/Frameworks/LinkKit.framework/prepare_for_distribution.sh\n";
 		};
 		F8BC737F2AD7A05944D9E2A1 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -271,6 +305,7 @@
 			baseConfigurationReference = 3B47C5AFCB8BDE514B7D1AC6 /* Pods-virgilmobileapp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = virgilmobileapp/app.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				INFOPLIST_FILE = virgilmobileapp/Info.plist;
@@ -280,10 +315,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.virgilcard.app";
+				PRODUCT_BUNDLE_IDENTIFIER = com.virgilcard.app;
 				PRODUCT_NAME = app;
 				VERSIONING_SYSTEM = "apple-generic";
-				CODE_SIGN_ENTITLEMENTS = virgilmobileapp/app.entitlements;
 			};
 			name = Debug;
 		};
@@ -292,6 +326,7 @@
 			baseConfigurationReference = 8AC623DBF3A3E2CB072F81F2 /* Pods-virgilmobileapp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = virgilmobileapp/app.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				INFOPLIST_FILE = virgilmobileapp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -300,10 +335,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.virgilcard.app";
+				PRODUCT_BUNDLE_IDENTIFIER = com.virgilcard.app;
 				PRODUCT_NAME = app;
 				VERSIONING_SYSTEM = "apple-generic";
-				CODE_SIGN_ENTITLEMENTS = virgilmobileapp/app.entitlements;
 			};
 			name = Release;
 		};
@@ -334,6 +368,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = virgilmobileapp/app.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -356,10 +391,9 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = iphoneos;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.virgilcard.app";
+				PRODUCT_BUNDLE_IDENTIFIER = com.virgilcard.app;
 				PRODUCT_NAME = app;
-				CODE_SIGN_ENTITLEMENTS = virgilmobileapp/app.entitlements;
+				SDKROOT = iphoneos;
 			};
 			name = Debug;
 		};
@@ -390,6 +424,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = virgilmobileapp/app.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -404,11 +439,10 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = com.virgilcard.app;
+				PRODUCT_NAME = app;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.virgilcard.app";
-				PRODUCT_NAME = app;
-				CODE_SIGN_ENTITLEMENTS = virgilmobileapp/app.entitlements;
 			};
 			name = Release;
 		};

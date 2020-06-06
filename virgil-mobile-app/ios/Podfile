@@ -37,6 +37,7 @@ target 'virgilmobileapp' do
   pod 'Folly', :podspec => "#{rnPrefix}/third-party-podspecs/Folly.podspec"
 
   # Other native modules
+  pod 'Plaid'
   
   # Automatically detect installed unimodules
   use_unimodules!

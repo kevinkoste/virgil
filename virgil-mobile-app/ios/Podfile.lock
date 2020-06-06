@@ -47,6 +47,10 @@ PODS:
     - React-Core (= 0.61.5)
     - React-jsi (= 0.61.5)
     - ReactCommon/turbomodule/core (= 0.61.5)
+  - Fidel (1.7.1)
+  - fidel-react-native (1.2.3):
+    - Fidel
+    - React
   - Folly (2018.10.22.00):
     - boost-for-react-native
     - DoubleConversion
@@ -58,6 +62,7 @@ PODS:
     - glog
   - glog (0.3.5)
   - JKBigInteger2 (0.0.5)
+  - Plaid (1.1.29)
   - RCTRequired (0.61.5)
   - RCTTypeSafety (0.61.5):
     - FBLazyVector (= 0.61.5)
@@ -223,6 +228,9 @@ PODS:
   - React-jsinspector (0.61.5)
   - react-native-netinfo (5.9.2):
     - React
+  - react-native-plaid-link-sdk (3.3.2):
+    - Plaid
+    - React
   - react-native-safe-area-context (0.7.3):
     - React
   - React-RCTActionSheet (0.61.5):
@@ -310,8 +318,10 @@ DEPENDENCIES:
   - EXWebBrowser (from `../node_modules/expo-web-browser/ios`)
   - FBLazyVector (from `../node_modules/react-native/Libraries/FBLazyVector`)
   - FBReactNativeSpec (from `../node_modules/react-native/Libraries/FBReactNativeSpec`)
+  - fidel-react-native (from `../node_modules/fidel-react-native`)
   - Folly (from `../node_modules/react-native/third-party-podspecs/Folly.podspec`)
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
+  - Plaid
   - RCTRequired (from `../node_modules/react-native/Libraries/RCTRequired`)
   - RCTTypeSafety (from `../node_modules/react-native/Libraries/TypeSafety`)
   - React (from `../node_modules/react-native/`)
@@ -324,6 +334,7 @@ DEPENDENCIES:
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - "react-native-netinfo (from `../node_modules/@react-native-community/netinfo`)"
+  - react-native-plaid-link-sdk (from `../node_modules/react-native-plaid-link-sdk`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
   - React-RCTAnimation (from `../node_modules/react-native/Libraries/NativeAnimation`)
@@ -360,7 +371,9 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - boost-for-react-native
+    - Fidel
     - JKBigInteger2
+    - Plaid
 
 EXTERNAL SOURCES:
   DoubleConversion:
@@ -397,6 +410,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/Libraries/FBLazyVector"
   FBReactNativeSpec:
     :path: "../node_modules/react-native/Libraries/FBReactNativeSpec"
+  fidel-react-native:
+    :path: "../node_modules/fidel-react-native"
   Folly:
     :podspec: "../node_modules/react-native/third-party-podspecs/Folly.podspec"
   glog:
@@ -421,6 +436,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/jsinspector"
   react-native-netinfo:
     :path: "../node_modules/@react-native-community/netinfo"
+  react-native-plaid-link-sdk:
+    :path: "../node_modules/react-native-plaid-link-sdk"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
   React-RCTActionSheet:
@@ -503,9 +520,12 @@ SPEC CHECKSUMS:
   EXWebBrowser: 5902f99ac5ac551e5c82ff46f13a337b323aa9ea
   FBLazyVector: aaeaf388755e4f29cd74acbc9e3b8da6d807c37f
   FBReactNativeSpec: 118d0d177724c2d67f08a59136eb29ef5943ec75
+  Fidel: dde167b739ff3748a81d596b665ddcd70a51debf
+  fidel-react-native: 025c7dbc2a601e9d3b82ddaeaa60ff218acd3f25
   Folly: 30e7936e1c45c08d884aa59369ed951a8e68cf51
   glog: 1f3da668190260b06b429bb211bfbee5cd790c28
   JKBigInteger2: e91672035c42328c48b7dd015b66812ddf40ca9b
+  Plaid: 8cebd80f77f400568028b6d66c97827b76c675f4
   RCTRequired: b153add4da6e7dbc44aebf93f3cf4fcae392ddf1
   RCTTypeSafety: 9aa1b91d7f9310fc6eadc3cf95126ffe818af320
   React: b6a59ef847b2b40bb6e0180a97d0ca716969ac78
@@ -516,6 +536,7 @@ SPEC CHECKSUMS:
   React-jsiexecutor: d5525f9ed5f782fdbacb64b9b01a43a9323d2386
   React-jsinspector: fa0ecc501688c3c4c34f28834a76302233e29dc0
   react-native-netinfo: cb74e17062b2af5a16a4b137f32495f241df1a8e
+  react-native-plaid-link-sdk: 61a81184e42f919cd61672dd0961a47e5ce4a256
   react-native-safe-area-context: e200d4433aba6b7e60b52da5f37af11f7a0b0392
   React-RCTActionSheet: 600b4d10e3aea0913b5a92256d2719c0cdd26d76
   React-RCTAnimation: 791a87558389c80908ed06cc5dfc5e7920dfa360
@@ -548,6 +569,6 @@ SPEC CHECKSUMS:
   UMTaskManagerInterface: cb890c79c63885504ddc0efd7a7d01481760aca2
   Yoga: f2a7cd4280bfe2cca5a7aed98ba0eb3d1310f18b
 
-PODFILE CHECKSUM: 0f4d6c0be699c727bc3ccf403b4ae5d433c09c5f
+PODFILE CHECKSUM: 6f141a95e303a64f3a51c5706ea10a5569a58051
 
 COCOAPODS: 1.9.1
