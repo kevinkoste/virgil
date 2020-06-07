@@ -1,6 +1,6 @@
 # Virgil Landing Page
 
-This is the repo for Virgil's landing page, a React SPA hosted as a static site on AWS S3. [virgilcard.com](https://virgilcard.com)
+This is the repo for Virgil's landing page, a React SPA hosted as a static site on AWS S3 [virgilcard.com](https://virgilcard.com)
 
 ### About
 
@@ -12,7 +12,7 @@ This is the repo for Virgil's landing page, a React SPA hosted as a static site 
 ### Technology
 
 * Server: Node/Express API (AWS EC2 instance in VPC public subnet)
-* Database: Postgres (AWS RDS instance in VPC private subnet).
+* Database: Postgres (AWS RDS instance in VPC private subnet)
 * Email: Personalized emails for new user signups (AWS SES)
 * Monitoring: Replicated referral data for quick monitoring and "fraud" detection (Google Sheets API)
 
