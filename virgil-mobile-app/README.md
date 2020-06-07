@@ -11,8 +11,16 @@ This is the Virgil app, a modern credit card app built using React Native that u
 
 ### Screenshots
 
-##### Home Page
+##### Home & Spending
  
-![Referral Dashboard Image](https://github.com/kevinkoste/virgil-mobile-app/blob/master/src/assets/readme/IMG_0463.PNG)
+![Home Tab Image](https://github.com/kevinkoste/virgil-mobile-app/blob/master/src/assets/readme/home.png)
+
+##### Rewards
+ 
+![Reward Tab Image](https://github.com/kevinkoste/virgil-mobile-app/blob/master/src/assets/readme/rewards.png)
+
+##### New Reward Experience
+ 
+![Experience Image](https://github.com/kevinkoste/virgil-mobile-app/blob/master/src/assets/readme/experience.png)
 
 
