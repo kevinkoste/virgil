@@ -12,7 +12,7 @@ export const PostPlaidToken = (token, metadata) => {
     headers: {},
   }
 
-  return Promise(resolve, reject => {
+  return Promise((resolve, reject) => {
     API.post(api, path, config)
     .then(res => resolve(res))
     .catch(err => reject(err))
