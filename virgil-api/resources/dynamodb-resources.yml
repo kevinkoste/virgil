@@ -11,6 +11,8 @@ Resources:
       AttributeDefinitions:
         - AttributeName: userId
           AttributeType: S
+      StreamSpecification:
+        StreamViewType: NEW_IMAGE
 
   CardsTable:
     Type: AWS::DynamoDB::Table
@@ -33,6 +35,8 @@ Resources:
               KeyType: HASH
           Projection:
             ProjectionType: ALL
+      StreamSpecification:
+        StreamViewType: NEW_IMAGE
 
   TransactionsTable:
     Type: AWS::DynamoDB::Table
@@ -55,3 +59,5 @@ Resources:
               KeyType: HASH
           Projection:
             ProjectionType: ALL
+      StreamSpecification:
+        StreamViewType: NEW_IMAGE

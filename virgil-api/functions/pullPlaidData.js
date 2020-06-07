@@ -3,8 +3,9 @@ import plaid from '../libs/plaid-lib'
 import dynamoDb from '../libs/dynamodb-lib'
 
 /**
- * function to handle Plaid public_token after successful client Plaid Link event
- * exchanges public_token for access_token, and puts to user table 
+ * function triggered by put to user table
+ * attempts to pull data from plaid and put to account and transaction tables
+ * puts new userId to table (coming from Cognito)
  */
 export const main = handler(async (event, context) => {
 
@@ -15,6 +16,8 @@ export const main = handler(async (event, context) => {
   } else {
     requestBody = event.body
   }
+
+  plaid.getAccounts()
 
   // this flow exchanges user public token for an access token,
   // then gets Auth object for the user, (has all data we need),

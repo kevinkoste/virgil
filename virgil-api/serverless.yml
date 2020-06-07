@@ -51,6 +51,10 @@ provider:
         - dynamodb:PutItem
         - dynamodb:UpdateItem
         - dynamodb:DeleteItem
+        - dynamodb:DescribeStream
+        - dynamodb:GetRecords
+        - dynamodb:GetShardIterator
+        - dynamodb:ListStreams
       Resource:
         - Fn::GetAtt: [ UsersTable, Arn ]
         - Fn::GetAtt: [ CardsTable, Arn ]
@@ -89,7 +93,7 @@ functions:
           cors: true
           authorizer: aws_iam
 
-  # function writes new email to waitlist after website sign-up
+  # function writes new email to waitlist after website sign-up, NOT IN USE
   postWaitlistSignUp:
     handler: functions/postWaitlistSignUp.main
     events:
@@ -119,7 +123,7 @@ functions:
           cors: true
     warmup: true
 
-  # function handles all Fidel webhook logic based on "event" header
+  # function handles exchanging plaid public token for access token and putting to users table
   postPlaidToken: 
     handler: functions/postPlaidToken.main
     events:
@@ -129,6 +133,16 @@ functions:
           cors: true
           authorizer: aws_iam
     warmup: true
+
+  # function triggered by new row in users table, pulls user data from plaid
+  # pullPlaidData:
+  #   handler: functions/pullPlaidData.main
+  #   events:
+  #     - stream:
+  #         type: dynamodb
+  #         arn:
+  #           Fn::GetAtt: [ UsersTable, StreamArn ]
+  #         batchSize: 1
 
 
 resources:
