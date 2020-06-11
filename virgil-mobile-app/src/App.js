@@ -34,11 +34,12 @@ const App = () => {
     .then(res => {
       console.log('Successfully retrieved User from current session')
       setUserAuthenticated(true)
+      setAuthPending(false)
     })
     .catch(err => {
       console.log('No authenticated user session found')
+      setAuthPending(false)
     })
-    setAuthPending(false)
   }
 
   async function LoadFonts() {
@@ -48,12 +49,12 @@ const App = () => {
     })
     .then(res => {
       console.log('Successfully loaded fonts')
+      setFontPending(false)
     })
     .catch(err => {
       console.log('Unable to load fonts:')
       console.log(err)
     })
-    setFontPending(false)
   }
 
 
