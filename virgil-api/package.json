@@ -15,16 +15,16 @@
     "mock-webhookFidel-card-link": "sls invoke local --function webhookFidel --path mocks/webhookFidel-card-link.json",
     "mock-webhookFidel-transaction-auth": "sls invoke local --function webhookFidel --path mocks/webhookFidel-transaction-auth.json",
     "mock-getTransactionsByUser": "sls invoke local --function getTransactionsByUser --path mocks/getTransactionsByUser.json",
-    "mock-postPlaidToken": "sls invoke local --function postPlaidToken --path mocks/postPlaidToken.json"
-
+    "mock-postPlaidToken": "sls invoke local --function postPlaidToken --path mocks/postPlaidToken.json",
+    "mock-webhookPlaid": "sls invoke local --function webhookPlaid --path mocks/webhookPlaid.json"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "googleapis": "^52.0.0",
-    "plaid": "^5.1.0",
-    "uuid": "^8.1.0"
+    "moment": "^2.26.0",
+    "plaid": "^5.1.0"
   },
   "devDependencies": {
     "aws-sdk": "^2.686.0",

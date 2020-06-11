@@ -1,4 +1,4 @@
-import handler from "../libs/handler-lib";
+import handler from "../libs/handler-lib"
 
 /**
  * function to handle hello

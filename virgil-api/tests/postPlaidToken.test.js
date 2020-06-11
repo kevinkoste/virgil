@@ -7,9 +7,11 @@ let context
 let expected
 
 // test fidel-card-linked event
-test('Lambda Function "postPlaidToken" handles new Plaid Link event', () => {
+it('Lambda Function "postPlaidToken" handles new Plaid Link event', () => {
 
   plaid.sandboxPublicTokenCreate("ins_109508", ["transactions"]).then(res => {
+
+    console.log(res.public_token)
 
     publicToken = res.public_token
 
@@ -19,7 +21,8 @@ test('Lambda Function "postPlaidToken" handles new Plaid Link event', () => {
       },
       requestContext: {
         identity: {
-          cognitoIdentityId: "MOCK-USER_5"
+          cognitoIdentityId: "mock-identity-pool-id",
+          cognitoAuthenticationProvider: "cognito-idp.us-east-1.amazonaws.com/us-east-1_xxxxxxxxx,cognito-idp.us-east-1.amazonaws.com/us-east-1_mock-user-pool:CognitoSignIn:mock-user-pool_userId"
         }
       },
       pathParameters: {},
@@ -48,10 +51,6 @@ test('Lambda Function "postPlaidToken" handles new Plaid Link event', () => {
     console.log(err)
     throw Error('unable to generate sandbox test public_token')
   })
-  
-
-
-
 })
 
 

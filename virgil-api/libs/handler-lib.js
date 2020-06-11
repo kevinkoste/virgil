@@ -5,7 +5,7 @@ export default function handler(lambda) {
 
     // Immediate response for warm-up events
     if (event.source === 'serverless-plugin-warmup') {
-      console.log('Warm-up event')
+      debug.log('Warm-up event')
       return [200, { message: 'Lambda is warm!' }]
     }
 
@@ -35,4 +35,16 @@ export default function handler(lambda) {
       // Cleanup debugger
       .finally(debug.end)
   }
+}
+
+// helper function to get user pool user id (our dynamodb primary key) from any authenticated request
+export const getUserPoolUserId = (event) => {
+  const authProvider = event.requestContext.identity.cognitoAuthenticationProvider
+  const parts = authProvider.split(':')
+
+  // const userPoolIdParts = parts[parts.length - 3].split('/')
+  // const userPoolId = userPoolIdParts[userPoolIdParts.length - 1]
+  const userPoolUserId = parts[parts.length - 1]
+
+  return userPoolUserId
 }

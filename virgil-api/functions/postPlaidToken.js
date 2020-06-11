@@ -1,4 +1,5 @@
-import handler from '../libs/handler-lib'
+import handler, { getUserPoolUserId } from '../libs/handler-lib'
+import { log } from "../libs/debug-lib"
 import plaid from '../libs/plaid-lib'
 import dynamoDb from '../libs/dynamodb-lib'
 
@@ -8,44 +9,63 @@ import dynamoDb from '../libs/dynamodb-lib'
  */
 export const main = handler(async (event, context) => {
 
+  // get user pool user id from event, this is our userId (primary key)
+  const userPoolUserId = getUserPoolUserId(event)
+
   // parse body if needed; required if using Lambda Proxy Integration
-  let requestBody = {}
+  let payload = {}
   if (typeof event.body === String) {
-    requestBody = JSON.parse(event.body)
+    payload = JSON.parse(event.body)
   } else {
-    requestBody = event.body
+    payload = event.body
   }
 
   // this flow exchanges user public token for an access token,
-  // then gets Auth object for the user, (has all data we need),
-  // then writes to tables
-  plaid.exchangePublicToken(requestBody.public_token).then(res => {
+  // then writes itemId and accessToken to table
+  plaid.exchangePublicToken(payload.public_token).then(res => {
 
+    let itemId = res.item_id
     let accessToken = res.access_token
 
-    plaid.getAuth(accessToken).then(res => {
-      dynamoDb.put({
-        TableName: process.env.USERS_TABLE_NAME,
-        Item: {
-          userId: event.requestContext.identity.cognitoIdentityId,
-          accessToken: accessToken,
-          authObj: res,
-          createdAt: Date.now()
-        }
-      }).then(res => {
-        console.log(res)
-        return { message: "success" }
-      }).catch(err => {
-        console.log('Error: dynamoDb.put')
-        throw err
-      })
-
+    dynamoDb.put({
+      TableName: process.env.ITEMS_TABLE_NAME,
+      Item: {
+        itemId: itemId,
+        userId: userPoolUserId,
+        accessToken: accessToken,
+        createdAt: Date.now()
+      }
+    }).then(res => {
+      return { message: "success" }
     }).catch(err => {
-      console.log('Error: plaid.getAuth')
-      throw err
+      throw { message: err }
     })
   }).catch(err => {
-    console.log('Error: plaid.exchangePublicToken')
-    throw err
+    throw { message: err }
   })
+
 })
+
+
+// If we need entire Auth object, for now just need itemId and accesToken, webhooks handle the rest
+// plaid.getAuth(accessToken).then(res => {
+//   dynamoDb.put({
+//     TableName: process.env.USERS_TABLE_NAME,
+//     Item: {
+//       userId: userPoolUserId,
+//       itemId: itemId,
+//       accessToken: accessToken,
+//       authObj: res,
+//       createdAt: Date.now()
+//     }
+//   }).then(res => {
+//     console.log(res)
+//     return { message: "success" }
+//   }).catch(err => {
+//     console.log('Error: dynamoDb.put')
+//     throw err
+//   })
+// }).catch(err => {
+//   console.log('Error: plaid.getAuth')
+//   throw err
+// })

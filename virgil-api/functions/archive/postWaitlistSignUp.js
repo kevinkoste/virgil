@@ -1,5 +1,5 @@
-import handler from "../libs/handler-lib"
-import ses from "../libs/ses-lib"
+import handler from "../../libs/handler-lib"
+import ses from "../../libs/ses-lib"
 // import { GoogleSheetsAppend } from '../libs/googleapis-lib'
 
 /**

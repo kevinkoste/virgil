@@ -29,10 +29,8 @@ provider:
     GOOGLE_SHEET_ID_EMAILS: ${env:GOOGLE_SHEET_ID_EMAILS}
 
     # DynamoDB table names based on stage
-    USERS_TABLE_NAME: ${self:custom.usersTableName}
-    CARDS_TABLE_NAME: "dev-virgil-cards"
-    TRANSACTIONS_TABLE_NAME: "dev-virgil-transactions"
-
+    ITEMS_TABLE_NAME: ${self:custom.itemsTableName}
+    # USERS_TABLE_NAME: ${self:custom.usersTableName}
     # CARDS_TABLE_NAME: ${self:custom.cardsTableName}
     # TRANSACTIONS_TABLE_NAME: ${self:custom.transactionsTableName}
 
@@ -56,11 +54,13 @@ provider:
         - dynamodb:GetShardIterator
         - dynamodb:ListStreams
       Resource:
-        - Fn::GetAtt: [ UsersTable, Arn ]
-        - Fn::GetAtt: [ CardsTable, Arn ]
-        - Fn::Join: [ "/", [ Fn::GetAtt: [ CardsTable, Arn ], "index", "userId-index" ]]
-        - Fn::GetAtt: [ TransactionsTable, Arn ]
-        - Fn::Join: [ "/", [ Fn::GetAtt: [ TransactionsTable, Arn ], "index", "userId-index" ]]
+        - Fn::GetAtt: [ ItemsTable, Arn ]
+        - Fn::Join: [ "/", [ Fn::GetAtt: [ ItemsTable, Arn ], "index", "userId-index" ]]
+        # - Fn::GetAtt: [ UsersTable, Arn ]
+        # - Fn::GetAtt: [ CardsTable, Arn ]
+        # - Fn::Join: [ "/", [ Fn::GetAtt: [ CardsTable, Arn ], "index", "userId-index" ]]
+        # - Fn::GetAtt: [ TransactionsTable, Arn ]
+        # - Fn::Join: [ "/", [ Fn::GetAtt: [ TransactionsTable, Arn ], "index", "userId-index" ]]
 
   # config to deploy functions in a VPC
   # vpc:
@@ -83,46 +83,6 @@ functions:
           cors: true
     warmup: true
 
-  # function writes new userId (Cognito ID) after successful mobile app sign-up
-  postSignUp:
-    handler: functions/postSignUp.main
-    events:
-      - http:
-          path: signup
-          method: post
-          cors: true
-          authorizer: aws_iam
-
-  # function writes new email to waitlist after website sign-up, NOT IN USE
-  postWaitlistSignUp:
-    handler: functions/postWaitlistSignUp.main
-    events:
-      - http:
-          path: waitlist
-          method: post
-          cors: true
-
-  # function gets and returns all transactions for an authenticated user based on userId
-  getTransactionsByUser:
-    handler: functions/getTransactionsByUser.main
-    events:
-      - http:
-          path: transactions
-          method: get
-          cors: true
-          authorizer: aws_iam
-    warmup: true
-
-  # function handles all Fidel webhook logic based on "event" header
-  webhookFidel: 
-    handler: functions/webhookFidel.main
-    events:
-      - http:
-          path: webhook
-          method: post
-          cors: true
-    warmup: true
-
   # function handles exchanging plaid public token for access token and putting to users table
   postPlaidToken: 
     handler: functions/postPlaidToken.main
@@ -134,15 +94,36 @@ functions:
           authorizer: aws_iam
     warmup: true
 
+
+  # function handles all Fidel webhook logic based on "event" header
+  webhookPlaid: 
+    handler: functions/webhookPlaid.main
+    events:
+      - http:
+          path: plaid/webhook
+          method: post
+          cors: true
+    warmup: true
+
   # function triggered by new row in users table, pulls user data from plaid
-  # pullPlaidData:
-  #   handler: functions/pullPlaidData.main
+  pullPlaidData:
+    handler: functions/pullPlaidData.main
+    events:
+      - stream:
+          type: dynamodb
+          arn:
+            Fn::GetAtt: [ ItemsTable, StreamArn ]
+          batchSize: 1
+
+  # function handles all Fidel webhook logic based on "event" header
+  # webhookFidel: 
+  #   handler: functions/webhookFidel.main
   #   events:
-  #     - stream:
-  #         type: dynamodb
-  #         arn:
-  #           Fn::GetAtt: [ UsersTable, StreamArn ]
-  #         batchSize: 1
+  #     - http:
+  #         path: webhook
+  #         method: post
+  #         cors: true
+  #   warmup: true
 
 
 resources:
@@ -160,9 +141,10 @@ custom:
     linting: false
 
   # generate dynamodb table names based on stage
-  usersTableName: ${self:custom.stage}-virgil-users
-  cardsTableName: ${self:custom.stage}-virgil-cards
-  transactionsTableName: ${self:custom.stage}-virgil-transactions
+  itemsTableName: ${self:custom.stage}-virgil-items
+  # usersTableName: ${self:custom.stage}-virgil-users
+  # cardsTableName: ${self:custom.stage}-virgil-cards
+  # transactionsTableName: ${self:custom.stage}-virgil-transactions
 
   # configure custom domains for each stage
   stage: ${opt:stage, self:provider.stage}

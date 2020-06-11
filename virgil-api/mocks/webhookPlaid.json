@@ -1,0 +1,9 @@
+{
+  "body": {
+    "webhook_type": "TRANSACTIONS",
+    "webhook_code": "INITIAL_UPDATE",
+    "item_id": "MWbn6XrwNwSpLdZvQR7mUJL64kG3Lqc9ydXwn",
+    "error": null,
+    "new_transactions": 1
+  }
+}

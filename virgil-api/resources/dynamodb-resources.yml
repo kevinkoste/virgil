@@ -1,29 +1,15 @@
 Resources:
 
-  UsersTable:
+  ItemsTable:
     Type: AWS::DynamoDB::Table
     Properties:
-      TableName: ${self:custom.usersTableName}
+      TableName: ${self:custom.itemsTableName}
       BillingMode: PAY_PER_REQUEST
       KeySchema:
-        - AttributeName: userId
+        - AttributeName: itemId
           KeyType: HASH
       AttributeDefinitions:
-        - AttributeName: userId
-          AttributeType: S
-      StreamSpecification:
-        StreamViewType: NEW_IMAGE
-
-  CardsTable:
-    Type: AWS::DynamoDB::Table
-    Properties:
-      TableName: ${self:custom.cardsTableName}
-      BillingMode: PAY_PER_REQUEST
-      KeySchema:
-        - AttributeName: cardId
-          KeyType: HASH
-      AttributeDefinitions:
-        - AttributeName: cardId
+        - AttributeName: itemId
           AttributeType: S
         - AttributeName: userId
           AttributeType: S
@@ -38,26 +24,74 @@ Resources:
       StreamSpecification:
         StreamViewType: NEW_IMAGE
 
-  TransactionsTable:
-    Type: AWS::DynamoDB::Table
-    Properties:
-      TableName: ${self:custom.transactionsTableName}
-      BillingMode: PAY_PER_REQUEST
-      KeySchema:
-        - AttributeName: transactionId
-          KeyType: HASH
-      AttributeDefinitions:
-        - AttributeName: transactionId
-          AttributeType: S
-        - AttributeName: userId
-          AttributeType: S
-      # include secondary index to enable query by userId
-      GlobalSecondaryIndexes:
-        - IndexName: userId-index
-          KeySchema:
-            - AttributeName: userId
-              KeyType: HASH
-          Projection:
-            ProjectionType: ALL
-      StreamSpecification:
-        StreamViewType: NEW_IMAGE
+  # UsersTable:
+  #   Type: AWS::DynamoDB::Table
+  #   Properties:
+  #     TableName: ${self:custom.usersTableName}
+  #     BillingMode: PAY_PER_REQUEST
+  #     KeySchema:
+  #       - AttributeName: userId
+  #         KeyType: HASH
+  #     AttributeDefinitions:
+  #       - AttributeName: userId
+  #         AttributeType: S
+  #       - AttributeName: itemId
+  #         AttributeType: S
+  #     # include secondary index to enable query by userId
+  #     GlobalSecondaryIndexes:
+  #       - IndexName: itemId-index
+  #         KeySchema:
+  #           - AttributeName: itemId
+  #             KeyType: HASH
+  #         Projection:
+  #           ProjectionType: ALL
+  #     StreamSpecification:
+  #       StreamViewType: NEW_IMAGE
+
+  # CardsTable:
+  #   Type: AWS::DynamoDB::Table
+  #   Properties:
+  #     TableName: ${self:custom.cardsTableName}
+  #     BillingMode: PAY_PER_REQUEST
+  #     KeySchema:
+  #       - AttributeName: cardId
+  #         KeyType: HASH
+  #     AttributeDefinitions:
+  #       - AttributeName: cardId
+  #         AttributeType: S
+  #       - AttributeName: userId
+  #         AttributeType: S
+  #     # include secondary index to enable query by userId
+  #     GlobalSecondaryIndexes:
+  #       - IndexName: userId-index
+  #         KeySchema:
+  #           - AttributeName: userId
+  #             KeyType: HASH
+  #         Projection:
+  #           ProjectionType: ALL
+  #     StreamSpecification:
+  #       StreamViewType: NEW_IMAGE
+
+  # TransactionsTable:
+  #   Type: AWS::DynamoDB::Table
+  #   Properties:
+  #     TableName: ${self:custom.transactionsTableName}
+  #     BillingMode: PAY_PER_REQUEST
+  #     KeySchema:
+  #       - AttributeName: transactionId
+  #         KeyType: HASH
+  #     AttributeDefinitions:
+  #       - AttributeName: transactionId
+  #         AttributeType: S
+  #       - AttributeName: userId
+  #         AttributeType: S
+  #     # include secondary index to enable query by userId
+  #     GlobalSecondaryIndexes:
+  #       - IndexName: userId-index
+  #         KeySchema:
+  #           - AttributeName: userId
+  #             KeyType: HASH
+  #         Projection:
+  #           ProjectionType: ALL
+  #     StreamSpecification:
+  #       StreamViewType: NEW_IMAGE
