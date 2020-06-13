@@ -60,6 +60,7 @@ const LoginForm = ({ navigation }) => {
           <TextInput style={styles.textInput}
             returnKeyType='send'
             placeholder={placeholder1}
+            keyboardType={"phone-pad"}
             onChangeText={(text) => setPhoneInput(text)}
             value={phoneInput}
             />
@@ -68,6 +69,7 @@ const LoginForm = ({ navigation }) => {
         <View style={styles.textInputContainer}>
           <TextInput style={styles.textInput}
             returnKeyType='send'
+            secureTextEntry={true}
             onSubmitEditing={onSubmit}
             placeholder={placeholder2}
             onChangeText={(text) => setPasswordInput(text)}

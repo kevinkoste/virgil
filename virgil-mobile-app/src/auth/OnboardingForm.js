@@ -15,66 +15,53 @@ import { Auth } from 'aws-amplify'
 import styles from '../styles/OnboardingForm.styles'
 const leftChevron = require('../static/icons/left-chevron.png')
 
-export const OnboardingFormFirstName = ({ navigation }) => {
+// Validate imports
+import { validate } from 'validate.js';
 
-  const dispatch = useDispatch()
-  // const leftChevron = require('../static/icons/left-chevron.png')
+// React Navigation
+import { useNavigation } from '@react-navigation/native';
 
-  const [textInput, setTextInput] = useState('')
 
-  const formTitle = 'First Name'
-  const placeholder = 'Kevin'
-  const onSubmit = () => {
-    dispatch(updateOnboardingData({ firstName:textInput }))
-    navigation.navigate('OnboardingFormLastName')
+const constraints = {
+  'First Name': {
+    text: {
+      presence: {
+        allowEmpty: false,
+        message: "^Name cannot be blank"
+      },
+    },
   }
 
-  return (
-    <SafeAreaView style={styles.screenContainer} forceInset={{bottom:'never'}}>
+};
 
-      <View style={styles.headerContainer}>
-        <View style={styles.headerTitleContainer}>
-          <TouchableOpacity onPress={() => navigation.goBack()} hitSlop={{top:10, left:10, bottom:10, right:50}}>
-            <Image source={leftChevron} style={{height:20, width:10.5, marginRight:12, marginTop:4 }} />
-          </TouchableOpacity>
-          <Text numberOfLines={1} style={styles.headerTitle}>{formTitle}</Text>
-        </View>
-      </View>
 
-      <View style={[styles.contentContainer, { paddingTop:97 }]} showsVerticalScrollIndicator={false}>
+const OnboardingScreen = (props) => {
 
-        <View style={styles.textInputContainer}>
-          <TextInput style={styles.textInput} returnKeyType='send'
-            onSubmitEditing={onSubmit}
-            placeholder={placeholder}
-            onChangeText={(text) => setTextInput(text)}
-            value={textInput}
-            />
-        </View>
+  const navigation = useNavigation()
 
-        <TouchableOpacity
-          onPress={onSubmit}
-          style={styles.button}>
-          <Text style={styles.buttonText}>NEXT</Text>
-        </TouchableOpacity>
+  const [textInput, setTextInput] = useState('')
+  const [errors, setErrors] = useState('')
 
-      </View>
+  const onSubmit = () => {
+    const validationResult = validate({text:textInput}, constraints[props.formTitle])
+    if (validationResult) {
+      setErrors(validationResult)
+    }
+    else {
+      navigation.navigate(props.nextScreen)
+    }
+  }
 
-    </SafeAreaView>
-  )
-}
+  const onChangeText = (text) => {
+    setTextInput(text)
+    const validationResult = validate({text:text}, constraints[props.formTitle])
+    setErrors(validationResult)
+  }
 
-export const OnboardingFormLastName = ({ navigation }) => {
-
-  const dispatch = useDispatch()
+  const getErrorMessages = (separator="\n") => {
+    if (!errors) return [];
   
-  const [textInput, setTextInput] = useState('')
-
-  const formTitle = 'Last Name'
-  const placeholder = 'Koste'
-  const onSubmit = () => {
-    dispatch(updateOnboardingData({ lastName:textInput }))
-    navigation.navigate('OnboardingFormPhone')
+    return Object.values(errors).map(it => it.join(separator)).join(separator);
   }
 
   return (
@@ -85,7 +72,7 @@ export const OnboardingFormLastName = ({ navigation }) => {
           <TouchableOpacity onPress={() => navigation.goBack()} hitSlop={{top:10, left:10, bottom:10, right:50}}>
             <Image source={leftChevron} style={{height:20, width:10.5, marginRight:12, marginTop:4 }} />
           </TouchableOpacity>
-          <Text numberOfLines={1} style={styles.headerTitle}>{formTitle}</Text>
+          <Text numberOfLines={1} style={styles.headerTitle}>{props.formTitle}</Text>
         </View>
       </View>
 
@@ -94,11 +81,16 @@ export const OnboardingFormLastName = ({ navigation }) => {
         <View style={styles.textInputContainer}>
           <TextInput style={styles.textInput} returnKeyType='send'
             onSubmitEditing={onSubmit}
-            placeholder={placeholder}
-            onChangeText={(text) => setTextInput(text)}
+            placeholder={props.placeholder}
+            onChangeText={onChangeText}
             value={textInput}
+            {...props.inputProps}
             />
         </View>
+
+        <Text>
+          {getErrorMessages()}
+        </Text>
 
         <TouchableOpacity
           onPress={onSubmit}
@@ -112,56 +104,34 @@ export const OnboardingFormLastName = ({ navigation }) => {
   )
 }
 
-export const OnboardingFormPhone = ({ navigation }) => {
+export const OnboardingFormFirstName = () => {
+  return(
+    <OnboardingScreen
+      formTitle={'First Name'}
+      placeholder={'Kevin'}
+      nextScreen={'OnboardingFormLastName'}
+    />
+  )
+}
 
-  const dispatch = useDispatch()
+export const OnboardingFormLastName = () => {
+  return(
+    <OnboardingScreen
+      formTitle={'Last Name'}
+      placeholder={'Koste'}
+      nextScreen={'OnboardingFormPhone'}
+    />
+  )
+}
 
-  const [textInput, setTextInput] = useState('')
-
-  const formTitle = 'Phone Number'
-  const placeholder = '1-800-CASH-NOW'
-  const onSubmit = () => {
-
-    // add validation logic here
-    const validatedPhoneNumber = '+1' + textInput
-    console.log(validatedPhoneNumber)
-
-    dispatch(updateOnboardingData({ phoneNumber:validatedPhoneNumber }))
-    navigation.navigate('OnboardingFormPassword')
-  }
-
-  return (
-    <SafeAreaView style={styles.screenContainer} forceInset={{bottom:'never'}}>
-
-      <View style={styles.headerContainer}>
-        <View style={styles.headerTitleContainer}>
-          <TouchableOpacity onPress={() => navigation.goBack()} hitSlop={{top:10, left:10, bottom:10, right:50}}>
-            <Image source={leftChevron} style={{height:20, width:10.5, marginRight:12, marginTop:4 }} />
-          </TouchableOpacity>
-          <Text numberOfLines={1} style={styles.headerTitle}>{formTitle}</Text>
-        </View>
-      </View>
-
-      <View style={[styles.contentContainer, { paddingTop:97 }]} showsVerticalScrollIndicator={false}>
-
-        <View style={styles.textInputContainer}>
-          <TextInput style={styles.textInput} returnKeyType='send'
-            onSubmitEditing={onSubmit}
-            placeholder={placeholder}
-            onChangeText={(text) => setTextInput(text)}
-            value={textInput}
-            />
-        </View>
-
-        <TouchableOpacity
-          onPress= {onSubmit}
-          style={styles.button}>
-          <Text style={styles.buttonText}>NEXT</Text>
-        </TouchableOpacity>
-
-      </View>
-
-    </SafeAreaView>
+export const OnboardingFormPhone = () => {
+  return(
+    <OnboardingScreen
+      formTitle={'Phone Number'}
+      placeholder={'1-800-CASH-NOW'}
+      nextScreen={'OnboardingFormPassword'}
+      inputProps={{keyboardType : "phone-pad"}}
+    />
   )
 }
 
@@ -215,6 +185,7 @@ export const OnboardingFormPassword = ({ navigation }) => {
 
         <View style={styles.textInputContainer}>
           <TextInput style={styles.textInput} returnKeyType='send'
+            secureTextEntry={true}
             onSubmitEditing={onSubmit}
             placeholder={placeholder}
             onChangeText={(text) => setTextInput(text)}
