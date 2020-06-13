@@ -7,23 +7,33 @@ import SafeAreaView from 'react-native-safe-area-view'
 import styles from '../styles/LandingScreen.styles'
 
 // Libs
+import { API } from 'aws-amplify'
 import PlaidLink from 'react-native-plaid-link-sdk'
-import { PLAID_PUBLIC_KEY, PLAID_ENV } from 'react-native-dotenv'
-import { PostPlaidToken } from '../services/api'
+import { PLAID_PUBLIC_KEY, PLAID_ENV, PLAID_WEBHOOK } from 'react-native-dotenv'
 
 
 export default function PlaidLinkScreen({ navigation }) {
 
   const onSuccess = async (token, metadata) => {
 
-    PostPlaidToken(token, metadata).then(res => {
+    const apiName = 'virgil-api'
+    const path = '/plaid/token'
+    const config = {
+      body: {
+        public_token: token,
+        metadata: metadata
+      },
+      headers: {},
+    }
+
+    API.post(apiName, path, config)
+    .then(res => {
       console.log(res)
-      // perhaps trigger fetch transactions
       navigation.navigate('Main')
-    }).catch(err => {
+    })
+    .catch(err => {
       console.log(err)
-      alert('Unable to save your response. Please try again later.')
-      navigation.navigate('Main')
+      alert(err)
     })
 
   }
@@ -52,9 +62,10 @@ export default function PlaidLinkScreen({ navigation }) {
       </View>
 
       <PlaidLink
-        publicKey={PLAID_PUBLIC_KEY}
         clientName={'Virgil'}
+        publicKey={PLAID_PUBLIC_KEY}
         env={PLAID_ENV}
+        webhook={PLAID_WEBHOOK}
         product={['auth','transactions']}
         onSuccess={onSuccess}
         onExit={onExit}

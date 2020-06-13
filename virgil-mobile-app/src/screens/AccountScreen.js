@@ -12,7 +12,7 @@ import AccountTile from '../components/AccountTile'
 import BalanceBar from '../components/BalanceBar'
 import AskUsTile from '../components/AskUsTile'
 
-import { Auth } from 'aws-amplify'
+import { Auth, API } from 'aws-amplify'
 
 export default function AccountScreen({ route, navigation }) {
 
@@ -50,6 +50,25 @@ export default function AccountScreen({ route, navigation }) {
     })
   }
 
+  const handleApiTest = async () => {
+
+    const authObj = { Authorization: `Bearer ${(await Auth.currentSession()).getAccessToken().getJwtToken()}` }
+    console.log(authObj)
+
+    const apiName = 'virgil-api'
+    const path = '/transactions'
+
+    API.get(apiName, path)
+    .then(res => {
+      console.log(res)
+      alert(res)
+    })
+    .catch(err => {
+      console.log(err)
+      alert(err)
+    })
+  }
+
   return (
     <SafeAreaView style={styles.screenContainer} forceInset={{ bottom: 'never' }}>
       <Animated.View style={[styles.headerContainer, {height: headerScrollHeight}]}>
@@ -79,22 +98,24 @@ export default function AccountScreen({ route, navigation }) {
 
           <AccountTile />
 
-          <TouchableOpacity
-            style={{justifyContent:'center', alignItems:'center', height:50}}
+          <TouchableOpacity style={{justifyContent:'center', alignItems:'center', height:50}}
             onPress = {handleGoToExperience}>
-              <Text>Go To Experience</Text>
+            <Text>Go To Experience</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity
-            style={{justifyContent:'center', alignItems:'center', height:50}}
+          <TouchableOpacity style={{justifyContent:'center', alignItems:'center', height:50}}
             onPress = {handleCardLink}>
-              <Text>Link a Card</Text>
+            <Text>Link a Card</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity
-            style={{justifyContent:'center', alignItems:'center', height:50}}
+          <TouchableOpacity style={{justifyContent:'center', alignItems:'center', height:50}}
             onPress = {handleLogOut}>
-              <Text>Log Out</Text>
+            <Text>Log Out</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={{justifyContent:'center', alignItems:'center', height:50}}
+            onPress = {handleApiTest}>
+            <Text>Test API</Text>
           </TouchableOpacity>
 
         </View>

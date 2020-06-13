@@ -1,3 +1,4 @@
+import { Auth, API } from 'aws-amplify'
 import { 
   COGNITO_REGION, 
   COGNITO_USER_POOL_ID,

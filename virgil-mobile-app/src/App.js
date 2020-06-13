@@ -25,6 +25,8 @@ import AuthNavigator from './navigation/AuthNavigator'
 
 const App = () => {
 
+  console.log('resetting..')
+
   const [userAuthenticated, setUserAuthenticated] = useState(false)
   const [authPending, setAuthPending] = useState(true)
   const [fontPending, setFontPending] = useState(true)
