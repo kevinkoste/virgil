@@ -16,10 +16,10 @@ import styles from '../styles/OnboardingForm.styles'
 const leftChevron = require('../static/icons/left-chevron.png')
 
 // Validate imports
-import { validate } from 'validate.js';
+import { validate } from 'validate.js'
 
 // React Navigation
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native'
 
 
 const constraints = {
@@ -36,8 +36,10 @@ const constraints = {
 
 
 const OnboardingScreen = (props) => {
+  // props: formTitle, placeholder, nextScreen, inputProps
 
   const navigation = useNavigation()
+  const dispatch = useDispatch()
 
   const [textInput, setTextInput] = useState('')
   const [errors, setErrors] = useState('')
@@ -48,6 +50,7 @@ const OnboardingScreen = (props) => {
       setErrors(validationResult)
     }
     else {
+      dispatch(updateOnboardingData({formTitle: textInput}))
       navigation.navigate(props.nextScreen)
     }
   }
@@ -144,6 +147,7 @@ export const OnboardingFormPassword = ({ navigation }) => {
 
   const formTitle = 'Password'
   const placeholder = 'hunter2'
+  
   const onSubmit = () => {
 
     // add validation logic here
@@ -152,12 +156,12 @@ export const OnboardingFormPassword = ({ navigation }) => {
 
     //  on success: update global state, navigate to new page, and call Auth API
     Auth.signUp({
-      username: onboardingData.phoneNumber,
+      username: onboardingData['Phone Number'],
       password: validatedPassword,
       attributes: {
-        phone_number: onboardingData.phoneNumber,
-        "custom:first_name": onboardingData.firstName,
-        "custom:last_name": onboardingData.lastName,
+        phone_number: onboardingData['Phone Number'],
+        "custom:first_name": onboardingData['First Name'],
+        "custom:last_name": onboardingData['Last Name'],
       }
     })
     .then(res => {

@@ -13,6 +13,7 @@ import BalanceBar from '../components/BalanceBar'
 import AskUsTile from '../components/AskUsTile'
 
 import { Auth, API } from 'aws-amplify'
+import axios from 'axios'
 
 export default function AccountScreen({ route, navigation }) {
 
@@ -52,13 +53,23 @@ export default function AccountScreen({ route, navigation }) {
 
   const handleApiTest = async () => {
 
+    // const apiName = 'virgil-api'
+    // const path = '/transactions'
+    // API.get(apiName, path)
+
     const authObj = { Authorization: `Bearer ${(await Auth.currentSession()).getAccessToken().getJwtToken()}` }
     console.log(authObj)
 
-    const apiName = 'virgil-api'
-    const path = '/transactions'
+    var instance = axios.create({
+      baseURL: 'https://dev-api.virgilcard.com',
+      timeout: 1000,
+      headers: {'Authorization': authObj}
+    })
 
-    API.get(apiName, path)
+    axios.get('https://dev-api.virgilcard.com/transactions', {
+
+
+    })
     .then(res => {
       console.log(res)
       alert(res)
