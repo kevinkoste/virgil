@@ -28,11 +28,8 @@ provider:
     # Google API
     GOOGLE_SHEET_ID_EMAILS: ${env:GOOGLE_SHEET_ID_EMAILS}
 
-    # DynamoDB table names based on stage
+    # DynamoDB table name based on stage
     ITEMS_TABLE_NAME: ${self:custom.itemsTableName}
-    # USERS_TABLE_NAME: ${self:custom.usersTableName}
-    # CARDS_TABLE_NAME: ${self:custom.cardsTableName}
-    # TRANSACTIONS_TABLE_NAME: ${self:custom.transactionsTableName}
 
   iamRoleStatements:
     # serverless-keep-warm role
@@ -56,11 +53,6 @@ provider:
       Resource:
         - Fn::GetAtt: [ ItemsTable, Arn ]
         - Fn::Join: [ "/", [ Fn::GetAtt: [ ItemsTable, Arn ], "index", "userId-index" ]]
-        # - Fn::GetAtt: [ UsersTable, Arn ]
-        # - Fn::GetAtt: [ CardsTable, Arn ]
-        # - Fn::Join: [ "/", [ Fn::GetAtt: [ CardsTable, Arn ], "index", "userId-index" ]]
-        # - Fn::GetAtt: [ TransactionsTable, Arn ]
-        # - Fn::Join: [ "/", [ Fn::GetAtt: [ TransactionsTable, Arn ], "index", "userId-index" ]]
 
   # config to deploy functions in a VPC
   # vpc:
@@ -81,7 +73,6 @@ functions:
           path: /
           method: get
           cors: true
-    warmup: true
 
   # function handles exchanging plaid public token for access token and putting to users table
   postPlaidToken: 
@@ -105,25 +96,16 @@ functions:
           cors: true
     warmup: true
 
-  # function triggered by new row in users table, pulls user data from plaid
-  pullPlaidData:
-    handler: functions/pullPlaidData.main
-    events:
-      - stream:
-          type: dynamodb
-          arn:
-            Fn::GetAtt: [ ItemsTable, StreamArn ]
-          batchSize: 1
-
   # function handles all Fidel webhook logic based on "event" header
-  # webhookFidel: 
-  #   handler: functions/webhookFidel.main
-  #   events:
-  #     - http:
-  #         path: webhook
-  #         method: post
-  #         cors: true
-  #   warmup: true
+  getPlaidTransactions: 
+    handler: functions/getPlaidTransactions.main
+    events:
+      - http:
+          path: transactions
+          method: get
+          cors: true
+          authorizer: aws_iam
+    warmup: true
 
 
 resources:
@@ -142,9 +124,6 @@ custom:
 
   # generate dynamodb table names based on stage
   itemsTableName: ${self:custom.stage}-virgil-items
-  # usersTableName: ${self:custom.stage}-virgil-users
-  # cardsTableName: ${self:custom.stage}-virgil-cards
-  # transactionsTableName: ${self:custom.stage}-virgil-transactions
 
   # configure custom domains for each stage
   stage: ${opt:stage, self:provider.stage}

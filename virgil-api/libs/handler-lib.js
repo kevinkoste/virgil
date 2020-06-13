@@ -5,7 +5,6 @@ export default function handler(lambda) {
 
     // Immediate response for warm-up events
     if (event.source === 'serverless-plugin-warmup') {
-      debug.log('Warm-up event')
       return [200, { message: 'Lambda is warm!' }]
     }
 

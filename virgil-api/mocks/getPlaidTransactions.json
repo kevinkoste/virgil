@@ -1,0 +1,8 @@
+{
+  "requestContext": {
+    "identity": {
+      "cognitoIdentityId": "mock-identity-pool-id",
+      "cognitoAuthenticationProvider": "cognito-idp.us-east-1.amazonaws.com/us-east-1_xxxxxxxxx,cognito-idp.us-east-1.amazonaws.com/us-east-1_mock-user-pool:CognitoSignIn:f9697eae-0ffc-418f-a911-311f8f2af79b"
+    }
+  }
+}

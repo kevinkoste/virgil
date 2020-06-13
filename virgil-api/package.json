@@ -9,14 +9,9 @@
   "scripts": {
     "start": "serverless offline start --skipCacheInvalidation",
     "test": "serverless-bundle test",
-    "mock": "npm run mock-postSignUp && npm run mock-postWaitlistSignUp && npm run mock-webhookFidel-card-link && npm run mock-webhookFidel-transaction-auth && npm run mock-getTransactionsByUser",
-    "mock-postSignUp": "sls invoke local --function postSignUp --path mocks/postSignUp.json",
-    "mock-postWaitlistSignUp": "sls invoke local --function postWaitlistSignUp --path mocks/postWaitlistSignUp.json",
-    "mock-webhookFidel-card-link": "sls invoke local --function webhookFidel --path mocks/webhookFidel-card-link.json",
-    "mock-webhookFidel-transaction-auth": "sls invoke local --function webhookFidel --path mocks/webhookFidel-transaction-auth.json",
-    "mock-getTransactionsByUser": "sls invoke local --function getTransactionsByUser --path mocks/getTransactionsByUser.json",
     "mock-postPlaidToken": "sls invoke local --function postPlaidToken --path mocks/postPlaidToken.json",
-    "mock-webhookPlaid": "sls invoke local --function webhookPlaid --path mocks/webhookPlaid.json"
+    "mock-webhookPlaid": "sls invoke local --function webhookPlaid --path mocks/webhookPlaid.json",
+    "mock-getPlaidTransactions": "sls invoke local --function getPlaidTransactions --path mocks/getPlaidTransactions.json"
   },
   "keywords": [],
   "author": "",

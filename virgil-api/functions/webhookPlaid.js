@@ -22,13 +22,19 @@ export const main = handler(async (event, context) => {
     return { message: "warning: received non-TRANSACTIONS request to plaid webhook" }
   }
 
-  UpdateTransactions(payload.item_id)
-  .then(res => {
-    return { message: "Plaid webhook: successfully processed" }
-  })
-  .catch(err => {
-    throw new Error(err)
-  })
+  await UpdateTransactions(payload.item_id)
+
+  return {
+    message: 'Plaid webhook: successfully processed'
+  }
+
+  // UpdateTransactions(payload.item_id)
+  // .then(res => {
+  //   return { message: "Plaid webhook: successfully processed" }
+  // })
+  // .catch(err => {
+  //   throw new Error(err)
+  // })
   
 })
 
@@ -46,20 +52,20 @@ const UpdateTransactions = (item_id) => {
       Key: { itemId: item_id },
       ProjectionExpression: "accessToken"
     })
-    .then(res => 
-      plaid.getAllTransactions(res.Item.accessToken, startDate, endDate)
-    )
-    .then(res => 
+    .then(resDb => resDb.Item.accessToken)
+    .then(accessToken => plaid.getAllTransactions(accessToken, startDate, endDate))
+    .then(resPlaid => resPlaid.transactions)
+    .then(transactions => 
       dynamoDb.update({
         TableName: process.env.ITEMS_TABLE_NAME,
         Key: { itemId: item_id },
         UpdateExpression: "set transactions = :a",
         ExpressionAttributeValues:{
-          ":a":res.transactions
+          ":a":transactions
         }
       })
     )
-    .then(res => resolve(res))
+    .then(resDb => resolve(resDb))
     .catch(err => reject(err))
   })
 }
