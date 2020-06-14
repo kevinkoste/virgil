@@ -19,7 +19,9 @@
   "dependencies": {
     "googleapis": "^52.0.0",
     "moment": "^2.26.0",
-    "plaid": "^5.1.0"
+    "pg": "^8.2.1",
+    "plaid": "^5.1.0",
+    "serverless-plugin-scripts": "^1.0.2"
   },
   "devDependencies": {
     "aws-sdk": "^2.686.0",

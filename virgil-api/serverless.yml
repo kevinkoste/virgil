@@ -8,7 +8,8 @@ plugins:
   - serverless-bundle # Package our functions with Webpack
   - serverless-offline
   - serverless-domain-manager # Use custom domain
-  - serverless-plugin-warmup # add warmup: true to keep functions warm
+  - serverless-plugin-warmup # Add warmup: true to keep functions warm
+  - serverless-plugin-scripts # Trigger db migrations on deploy
 
 provider:
   name: aws
@@ -30,6 +31,16 @@ provider:
 
     # DynamoDB table name based on stage
     ITEMS_TABLE_NAME: ${self:custom.itemsTableName}
+
+    # VPC config
+    # VPC_CIDR: ${env:VPC_CIDR}
+
+    # RDS Postgres
+    PGHOST: ${self:custom.POSTGRESQL.HOST}
+    PGPORT: ${self:custom.POSTGRESQL.PORT}
+    PGDATABASE: ${env:PGDATABASE}
+    PGUSER: ${env:PGUSER}
+    PGPASSWORD: ${env:PGPASSWORD}
 
   iamRoleStatements:
     # serverless-keep-warm role
@@ -55,13 +66,12 @@ provider:
         - Fn::Join: [ "/", [ Fn::GetAtt: [ ItemsTable, Arn ], "index", "userId-index" ]]
 
   # config to deploy functions in a VPC
-  # vpc:
-  #   securityGroupIds:
-  #     - sg-0abef7ae0eb455888
-  #   subnetIds:
-  #     - subnet-0a9718a7c75954e42
-  #     - subnet-06c1f047b244a7da8
-
+  vpc:
+    securityGroupIds:
+      - Ref: VirgilLambdaSecurityGroup
+    subnetIds:
+      - Ref: VirgilSubnetB
+      - Ref: VirgilSubnetC
 
 functions:
 
@@ -73,6 +83,10 @@ functions:
           path: /
           method: get
           cors: true
+
+  # function to create required tables, triggered on deploy
+  pgMigrate:
+    handler: functions/utils/pgMigrate.main
 
   # function handles exchanging plaid public token for access token and putting to users table
   postPlaidToken: 
@@ -115,12 +129,21 @@ resources:
   - ${file(resources/dynamodb-resources.yml)}
   # Cognito resources
   - ${file(resources/cognito-resources.yml)}
+  # VPC and RDS resources
+  - ${file(resources/vpc-resources.yml)}
 
 custom:
 
-  # disable linting on bundle
+  # disable linting on bundle, ignore mistakenly required pg-native package
   bundle: 
     linting: false
+    ignorePackages:
+      - pg-native
+
+  # configure scripts to run based on serverless hooks
+  scripts:
+    hooks:
+      'deploy:finalize': sls invoke -f pgMigrate
 
   # generate dynamodb table names based on stage
   itemsTableName: ${self:custom.stage}-virgil-items
@@ -136,3 +159,10 @@ custom:
     basePath: ''
     stage: "${self:custom.stage}"
     createRoute53Record: true
+
+  # configure RDS host and port 
+  POSTGRESQL:
+    HOST:
+      Fn::GetAtt: [VirgilPostgresDB, Endpoint.Address]
+    PORT:
+      Fn::GetAtt: [VirgilPostgresDB, Endpoint.Port]

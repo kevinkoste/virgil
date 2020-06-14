@@ -10,62 +10,96 @@ import moment from 'moment'
  */
 export const main = handler(async (event, context) => {
 
-  // parse body if needed; required if using Lambda Proxy Integration
-  let payload = {}
-  if (typeof event.body === String) {
-    payload = JSON.parse(event.body)
-  } else {
-    payload = event.body
-  }
+  // parse body 
+  const payload = JSON.parse(event.body)
 
   if (payload.webhook_type !== 'TRANSACTIONS') {
-    return { message: "warning: received non-TRANSACTIONS request to plaid webhook" }
+    throw new Error('warning: received non-TRANSACTIONS request to plaid webhook')
   }
 
-  await UpdateTransactions(payload.item_id)
+  // initialize
+  const itemId = payload.item_id
+  const endDate = moment().format('YYYY-MM-DD')
+  const startDate = moment().subtract(30, 'days').format('YYYY-MM-DD')
+  let accessToken
+  let transactions
 
+  // get the access token for the Item given in the notification
+  try {
+    const dbRes = await dynamoDb.get({
+      TableName: process.env.ITEMS_TABLE_NAME,
+      Key: { itemId: itemId },
+      ProjectionExpression: "accessToken"
+    })
+    accessToken =  dbRes.Item.accessToken
+  } catch (err) {
+    console.log(err)
+    throw new Error('Unable to get accessToken from db')
+  }
+
+  // get all transactions for the Item using the access token
+  try {
+    const resPlaid = await plaid.getAllTransactions(accessToken, startDate, endDate)
+    transactions = resPlaid.transactions
+  } catch (err) {
+    console.log(err)
+    throw new Error('Unable to getAllTransactions from plaid')
+  }
+
+  // update the database with the new transactions
+  try {
+    await dynamoDb.update({
+      TableName: process.env.ITEMS_TABLE_NAME,
+      Key: { itemId: itemId },
+      UpdateExpression: 'set transactions = :a',
+      ExpressionAttributeValues:{
+        ':a': transactions
+      }
+    })
+  } catch (err) {
+    console.log(err)
+    throw new Error('Unable to update db')
+  }
+  
   return {
     message: 'Plaid webhook: successfully processed'
   }
-
-  // UpdateTransactions(payload.item_id)
-  // .then(res => {
-  //   return { message: "Plaid webhook: successfully processed" }
-  // })
-  // .catch(err => {
-  //   throw new Error(err)
-  // })
   
 })
 
 
-// helper function to chain various promises
-const UpdateTransactions = (item_id) => {
 
-  // first get formatted date strings for Plaid request
-  const endDate = moment().format('YYYY-MM-DD')
-  const startDate = moment().subtract(1000, 'days').format('YYYY-MM-DD')
+// // helper function to chain various promises
+// const UpdateTransactions = (item_id) => {
 
-  return new Promise((resolve, reject) => {
-    dynamoDb.get({
-      TableName: process.env.ITEMS_TABLE_NAME,
-      Key: { itemId: item_id },
-      ProjectionExpression: "accessToken"
-    })
-    .then(resDb => resDb.Item.accessToken)
-    .then(accessToken => plaid.getAllTransactions(accessToken, startDate, endDate))
-    .then(resPlaid => resPlaid.transactions)
-    .then(transactions => 
-      dynamoDb.update({
-        TableName: process.env.ITEMS_TABLE_NAME,
-        Key: { itemId: item_id },
-        UpdateExpression: "set transactions = :a",
-        ExpressionAttributeValues:{
-          ":a":transactions
-        }
-      })
-    )
-    .then(resDb => resolve(resDb))
-    .catch(err => reject(err))
-  })
-}
+//   // first get formatted date strings for Plaid request
+//   const endDate = moment().format('YYYY-MM-DD')
+//   const startDate = moment().subtract(1000, 'days').format('YYYY-MM-DD')
+
+//   return new Promise((resolve, reject) => {
+//     dynamoDb.get({
+//       TableName: process.env.ITEMS_TABLE_NAME,
+//       Key: { itemId: item_id },
+//       ProjectionExpression: "accessToken"
+//     })
+//     .then(resDb => resDb.Item.accessToken)
+//     .then(accessToken => plaid.getAllTransactions(accessToken, startDate, endDate))
+//     .then(resPlaid => resPlaid.transactions)
+//     .then(transactions => 
+//       dynamoDb.update({
+//         TableName: process.env.ITEMS_TABLE_NAME,
+//         Key: { itemId: item_id },
+//         UpdateExpression: 'set transactions = :a',
+//         ExpressionAttributeValues:{
+//           ':a': transactions
+//         }
+//       })
+//     )
+//     .then(resDb => {
+//       resolve(resDb)
+//     })
+//     .catch(err => {
+//       reject(err)
+//     })
+//   })
+// }
