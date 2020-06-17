@@ -9,7 +9,7 @@ This repo contains all of the services and resources backing Virgil's React Nati
 * Authentication: Supports in-app onboarding with MFA and SMS verification
 
 ### Technology
-* Stateless architecture handles all API requests and business logic (AWS Lambda)
+* Serverelss architecture handles all API requests and business logic (AWS Lambda)
 * YML files orchestrate deployment of ~70 AWS resources (AWS CloudFormation)
 * Authentication and sign-up emails triggered based on business logic (AWS SES)
 * Integrated with external APIs (Google Sheets, Plaid, Fidel)
