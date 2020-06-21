@@ -87,6 +87,8 @@ functions:
   # function to create required tables, triggered on deploy
   pgMigrate:
     handler: functions/utils/pgMigrate.main
+  pgTestGet:
+    handler: functions/utils/pgTestGet.main
 
   # function handles exchanging plaid public token for access token and putting to users table
   postPlaidToken: 
@@ -143,7 +145,7 @@ custom:
   # configure scripts to run based on serverless hooks
   scripts:
     hooks:
-      'deploy:finalize': sls invoke -f pgMigrate
+      # 'deploy:finalize': sls invoke -f pgMigrate
 
   # generate dynamodb table names based on stage
   itemsTableName: ${self:custom.stage}-virgil-items
