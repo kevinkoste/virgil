@@ -12,7 +12,7 @@ import pool from '../libs/pg-lib'
 export const main = handler(async (event, context) => {
 
   // initiate pool connection, set context prop to enable pool reuse
-  context.callbackWaitsForEmptyEventLoop = false;
+  context.callbackWaitsForEmptyEventLoop = false
   const client = await pool.connect()
 
   // get user pool user id from event, this is our userId (primary key)
@@ -29,7 +29,6 @@ export const main = handler(async (event, context) => {
   `
 
   let resPg
-
   try {
     resPg = await client.query(query)
   } catch (err) {

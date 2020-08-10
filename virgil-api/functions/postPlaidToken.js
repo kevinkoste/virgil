@@ -26,7 +26,6 @@ export const main = handler(async (event, context) => {
     throw new Error('Unable to authenticate user')
   }
   
-
   // parse request body to object
   const payload = JSON.parse(event.body)
   debug(payload)

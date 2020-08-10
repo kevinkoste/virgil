@@ -1,17 +1,25 @@
+// Libs for handler and debugging
 import handler from '../libs/handler-lib'
-import plaid from '../libs/plaid-lib'
-import dynamoDb from '../libs/dynamodb-lib'
+import debug from '../libs/debug-lib'
+
+// Libs for other services
 import moment from 'moment'
+import plaid from '../libs/plaid-lib'
+import pool from '../libs/pg-lib'
 
 /**
  * function to handle all Plaid webhooks
- * handles different events based on required "event" header
- * dumps new data to dynamoDb tables
+ * handles transactions events
  */
 export const main = handler(async (event, context) => {
 
-  // parse body 
+  // initiate pool connection, set context prop to enable pool reuse
+  context.callbackWaitsForEmptyEventLoop = false;
+  const client = await pool.connect()
+
+  // parse plaid webhook payload
   const payload = JSON.parse(event.body)
+  debug(payload)
 
   if (payload.webhook_type !== 'TRANSACTIONS') {
     throw new Error('warning: received non-TRANSACTIONS request to plaid webhook')
@@ -25,16 +33,15 @@ export const main = handler(async (event, context) => {
   let transactions
 
   // get the access token for the Item given in the notification
+  const query =  `
+    SELECT accessToken FROM items WHERE itemId = ${itemId};
+  `
   try {
-    const dbRes = await dynamoDb.get({
-      TableName: process.env.ITEMS_TABLE_NAME,
-      Key: { itemId: itemId },
-      ProjectionExpression: "accessToken"
-    })
-    accessToken =  dbRes.Item.accessToken
+    const resDb = client.query(query)
+    accessToken =  resDb.rows[0].accessToken
   } catch (err) {
-    console.log(err)
-    throw new Error('Unable to get accessToken from db')
+    debug(err)
+    throw new Error('Unable to get accessToken from pg')
   }
 
   // get all transactions for the Item using the access token

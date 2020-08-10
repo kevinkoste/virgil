@@ -101,8 +101,7 @@ functions:
           authorizer: aws_iam
     warmup: true
 
-
-  # function handles all Fidel webhook logic based on "event" header
+  # function handles all Plaid webhook logic based on "event" header
   webhookPlaid: 
     handler: functions/webhookPlaid.main
     events:
@@ -112,7 +111,7 @@ functions:
           cors: true
     warmup: true
 
-  # function handles all Fidel webhook logic based on "event" header
+  # function handles selecting all transactions for the authenticated user
   getPlaidTransactions: 
     handler: functions/getPlaidTransactions.main
     events:
