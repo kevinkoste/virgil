@@ -1,0 +1,99 @@
+[
+  {
+    "id": "start",
+    "title": "Let's talk about credit cards",
+    "body1": "If you’re like us, you love your credit card. It’s shiny, it’s metal, it gets you free flights and hotels. What’s not to love?",
+    "body2": "We felt the same way, but we thought our cards could be even more.",
+    "nextID": "rewards"
+  },
+  {
+    "id": "rewards",
+    "title": "Credit card rewards - nothing new",
+    "body1": "Credit cards are all about rewards. Since the 1990’s, credit cards have partnered with airlines and hotel chains to offer cardholders flights and hotel rooms.",
+    "body2": "Rewards have been the same for years - but how do rewards work, and why do I get them each time I swipe my card?",
+    "nextID": "fees",
+    "skipText": "Skip To Data",
+    "skipID": "data"
+  },
+  {
+    "id": "fees",
+    "title": "Card Companies Make Money with Every Swipe",
+    "body1": "Each time your swipe a credit card, your credit card issuer (Chase, American Express, Barclays, etc.) makes a fee.",
+    "body2": ["This fee ranges anywhere from 2.0%-2.5% of the amount you spent. This money, called ", "<strong>interchange</strong>", "funds the rewards or cash back for your cards."],
+    "nextID": "points"
+  },
+  {
+    "id": "points",
+    "title": "Why are points so complicated?",
+    "body1": "Your credit card company wantd to keep that interchange as profit. So they invented clever games - points, mulitpliers, and redeption rates - to make it hard for you to understand how much of your interchange you’re redeeming and how much they’re keeping.",
+    "body2": "33% of credit card rewards earned each year are never redeemed, roughly $15Bn each year.",
+    "nextID": "interchange"
+  },
+  {
+    "id": "interchange",
+    "title": "Virgil keeps none of your interchange",
+    "body1": "Virgil doesn’t keep your interchange - it gives it all back to you as rewards. In fact, we grow your interchange by leveraging our customer base to get group discounts on rewards.",
+    "body2": "That 2.0%-2.5% grows to more than 3.5% spent at our favorite brands - a best-in-class rewards rate.",
+    "nextID": "data"
+  },
+  {
+    "id": "data",
+    "title": "Credit cards sell your data",
+    "body1": "Your credit card knows a lot about you. What you buy, when you buy, and where you buy. Credit card companies take what they know about you and sell it - to hedge funds and advertisers.",
+    "body2": "It’s a business that brings in $500M per year, and your data is the product.",
+    "nextID": "datagood",
+    "skipText": "Skip To Business Model",
+    "skipID": "bonuses"
+  },
+  {
+    "id": "datagood",
+    "title": "Your data could be used for good",
+    "body1": "Instead of being sold, your spending data could drive personalized recommendations for things to buy, eat, or enjoy. It could quickly surface fraudulent charges, unwanted subscriptions, and simple ways to save.",
+    "body2": "Your data could even be selectively shared with friends - helping them find a new spot to eat or a new boutique to try.",
+    "nextID": "dataguide"
+  },
+  {
+    "id": "dataguide",
+    "title": "Virgil uses your data to guide and assist you",
+    "body1": "Virgil doesn’t sell your data. Instead, it uses it in all the ways just mentioned.",
+    "body2": "We looked at how platforms like Spotify, Netflix, and Stitch Fix have been able to use data to improve their user’s lives. We’re doing the same for your spending and leisure.",
+    "nextID": "tech"
+  },
+  {
+    "id": "tech",
+    "title": "Virgil uses modern technology",
+    "body1": "Why don’t credit cards already use your data this way? In short, they’re behind the times when it comes to technology. Virgil has borrowed modern data science tecniques like collaborative filtering and hybrid recommender systems from leading tech companies to analyze spending.",
+    "body2": "We’ll look at your current spending data and buy you something we think you’ll love - shoot us an email at recommend@virgilcard.com",
+    "nextID": "interest"
+  },
+  {
+    "id": "interest",
+    "title": "Hoping you miss that payment",
+    "body1": "Credit card make almost all of their money (really, almost all of it) from interest. Even if you’re someone that doesn’t plan on carrying a balance, studies show you’ll carry a balance by accident [every so often].",
+    "body2": "Interest-bearing events are how cards profit - they’re hoping for them.",
+    "nextID": "bonuses"
+  },
+  {
+    "id": "bonuses",
+    "title": "Points now, pay later",
+    "body1": "Those interest payments are how credit cards can afford to pay you massive bonuses when you sign up.",
+    "body2": "When you get a pre-approved card in the mail offering a 50,000 point sign-up bonus, they’re hoping you take their money now in exchange for larger interest fees later.",
+    "nextID": "chargecard",
+    "skipText": "Skip To End",
+    "skipID": "start"
+  },
+  {
+    "id": "chargecard",
+    "title": "Virgil Doesn't let you hold a balance",
+    "body1": "Virgil is a charge card - which means it needs to be paid off in full at the end of each month.",
+    "body2": "It works just like any other credit card, but you can’t hold a balance, and you’ll never be charged interest.",
+    "nextID": "subscription"
+  },
+  {
+    "id": "subscription",
+    "title": "Virgil charges a subscription fee",
+    "body1": "Virgil doesn’t try to get you with interest or interchange. Instead, we charge an annual fee. We wanted to develop a clear, upfront pricing structure in exchange for offering best-in-class rewards, a personalized experience, and unparalleled service.",
+    "body2": "No games or gimmicks, just one annual fee - fair and square.",
+    "nextID": "start"
+  }
+]

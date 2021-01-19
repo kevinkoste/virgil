@@ -1,0 +1,878 @@
+[
+  {
+    "id": "start",
+    "question": "Support Small Businesses",
+    "body": "Allow us to introduce you to some of our favorite small businesses that hope to make your quarantine experience more enjoyable.",
+    "nextID": "1"
+  },
+  {
+    "id": 1,
+    "type": "radio",
+    "question": "Who are you quarantining with?",
+    "image": "who.jpg",
+    "options": [
+      {
+        "response": "Family",
+        "nextID": 2,
+        "points": {
+          "puzzle-a": 1,
+          "click-grow": 1
+        }
+      },
+      {
+        "response": "Friends",
+        "nextID": 2,
+        "points": {
+          "To Play": 1,
+          "bloomscape": 1,
+          "wnrs": 1
+        }
+      },
+      {
+        "response": "Partner",
+        "nextID": 2,
+        "points": {
+          "equal-parts": 2,
+          "puzzle-a": 1,
+          "boysmells": 1,
+          "maude": 2
+        }
+      },
+      {
+        "response": "Imaginary Friends",
+        "nextID": 2,
+        "points": {
+          "To Relax": 1,
+          "rooted": 1
+        }
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "type": "radio",
+    "question": "Any Pets?",
+    "image": "pets.jpg",
+    "options": [
+      {
+        "response": "Mammalian",
+        "nextID": 3,
+        "points": {
+
+        }
+      },
+      {
+        "response": "Avian",
+        "nextID": 3,
+        "points": {
+          "warhol": 1
+        }
+      },
+      {
+        "response": "Reptilian",
+        "nextID": 3,
+        "points": {
+          "nasa": 1
+        }
+      },
+      {
+        "response": "Wilson (None)",
+        "nextID": 3,
+        "points": {
+
+        }
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "type": "radio",
+    "question": "Drinking Much?",
+    "image": "drinking.jpg",
+    "options": [
+      {
+        "response": "Not at all",
+        "nextID": 4,
+        "points": {
+          "To Drink": -10,
+          "brightland": 1
+        }
+      },
+      {
+        "response": "On Occasion",
+        "nextID": 4,
+        "points": {
+          "To Cook": 1,
+          "brightland": 1,
+          "haus": 1
+        }
+      },
+      {
+        "response": "All The Time",
+        "nextID": 4,
+        "points": {
+          "To Drink": 1,
+          "winc": 1
+        }
+      },
+      {
+        "response": "Drunk Now",
+        "nextID": 4,
+        "points": {
+          "To Drink": 1,
+          "wine": 1
+        }
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "type": "radio",
+    "question": "Are You",
+    "image": "gender.jpg",
+    "options": [
+      {
+        "response": "Male",
+        "nextID": 5,
+        "points": {
+          "glossier": -10,
+          "herbivore": -10,
+          "leif": -10,
+          "frank": -10,
+          "lunya": -10,
+          "lou-grey": -10
+        }
+      },
+      {
+        "response": "Female",
+        "nextID": 5,
+        "points": {
+          "To Relax": 1,
+          "nasa": -10,
+          "hawthorne": -10,
+          "east": -10,
+          "frank-ocean": -10
+        }
+      },
+      {
+        "response": "Non-binary",
+        "nextID": 5,
+        "points": {}
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "type": "radio",
+    "question": "Love Life?",
+    "image": "love_life.jpg",
+    "options": [
+      {
+        "response": "Single Sans Mingle",
+        "nextID": 6,
+        "points": {
+          "To Cultivate": 1,
+          "van-lewens": 1,
+          "winc": 1
+        }
+      },
+      {
+        "response": "Texting lost lovers",
+        "nextID": 6,
+        "points": {
+          "To Drink": 1,
+          "ikigai": 1,
+          "haus": 1
+        }
+      },
+      {
+        "response": "In a Relationship",
+        "nextID": 6,
+        "points": {
+          "To Wear": 1,
+          "haus": 1,
+          "grocer": 2
+        }
+      },
+      {
+        "response": "Hinge is poppin",
+        "nextID": 6,
+        "points": {
+          "To Cook": 1,
+          "boysmells": 2
+        }
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "type": "radio",
+    "question": "Hand-washing Song?",
+    "image": "song.jpg",
+    "options": [
+      {
+        "response": "Sicko Mode - Travis Scott",
+        "nextID": 107,
+        "points": {
+          "To Create": 1,
+          "madhappy": 2,
+          "disposable": 1,
+          "east": 1
+        }
+      },
+      {
+        "response": "My Heart Will Go On - C.Dion",
+        "nextID": 107,
+        "points": {
+          "ikigai": 1
+        }
+      },
+      {
+        "response": "Stayin' Alive - Bee Gees",
+        "nextID": 107,
+        "points": {
+          "hawthorne": 1
+        }
+      },
+      {
+        "response": "You Need to Calm Down - TSwift",
+        "nextID": 107,
+        "points": {
+          "Glossier": 2,
+          "Herbivore": 1
+        }
+      }
+    ]
+  },
+  {
+    "id": 107,
+    "type": "radio",
+    "question": "Are You Artsy?",
+    "image": "artsy.jpg",
+    "options": [
+      {
+        "response": "Cave Painter",
+        "nextID": 7,
+        "points": {
+          "To Create": 1,
+          "warhol": 1,
+          "equal-parts": 1,
+          "blick": -10
+        }
+      },
+      {
+        "response": "Master of the Harp",
+        "nextID": 7,
+        "points": {
+          "To Create": 1,
+          "haus": 1
+        }
+      },
+      {
+        "response": "Instagram",
+        "nextID": 7,
+        "points": {
+          "To Wear": 1,
+          "psych": 1,
+          "square-circle-triangle": 1
+        }
+      },
+      {
+        "response": "Nope",
+        "nextID": 7,
+        "points": {
+          "To Create": -10,
+          "equal-parts": 1
+        }
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "type": "radio",
+    "question": "TikTok?",
+    "image": "tik_tok.jpg",
+    "options": [
+      {
+        "response": "#fyp.",
+        "nextID": 8,
+        "points": {
+          "To Create": 1,
+          "brightland": 1,
+          "glossier": 2,
+          "gravity": 1,
+          "grown-alchemist": 2
+        }
+      },
+      {
+        "response": "Absolutely Not",
+        "nextID": 8,
+        "points": {}
+      },
+      {
+        "response": "Help, I've Fallen and I Can't Get Up",
+        "nextID": 8,
+        "points": {
+          "winc": 1,
+          "herbivore": 1
+        }
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "type": "radio",
+    "question": "Television?",
+    "image": "watching.jpg",
+    "options": [
+      {
+        "response": "Ozark",
+        "nextID": 9,
+        "points": {
+          "unhide": 2,
+          "offhours": 2,
+          "lunya": 2
+        }
+      },
+      {
+        "response": "Westworld",
+        "nextID": 9,
+        "points": {
+          "unhide": 1
+        }
+      },
+      {
+        "response": "Free Joe Exotic",
+        "nextID": 9,
+        "points": {
+          "To Relax": 1,
+          "unhide": 2
+        }
+      },
+      {
+        "response": "Need Recommendations",
+        "nextID": 9,
+        "points": {
+          "To Relax": 1,
+          "lou-grey": 1
+        }
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "type": "radio",
+    "question": "Games?",
+    "image": "games.jpg",
+    "options": [
+      {
+        "response": "Board Games",
+        "nextID": 10,
+        "points": {
+          "To Play": 1,
+          "puzzle-a": 1
+        }
+      },
+      {
+        "response": "Video Games",
+        "nextID": 11,
+        "points": {
+          "madhappy": 1
+        }
+      },
+      {
+        "response": "Card games",
+        "nextID": 12,
+        "points": {
+          "To Play": 1,
+          "lou-grey": 1
+        }
+      },
+      {
+        "response": "Mind games",
+        "nextID": 12,
+        "points": {
+          "psych": 1
+        }
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "type": "radio",
+    "question": "One Brick for two Sheep?",
+    "image": "brick_sheep.jpg",
+    "options": [
+      {
+        "response": "Deal",
+        "nextID": 12,
+        "link": "https://colonist.io/",
+        "points": {
+          "grocer": 1
+        }
+      },
+      {
+        "response": "Hell no",
+        "nextID": 12,
+        "points": {
+          "puzzle-a": 1
+        }
+      },
+      {
+        "response": "One-for-one or get out",
+        "nextID": 12,
+        "points": {}
+      },
+      {
+        "response": "What?",
+        "nextID": 12,
+        "points": {
+          "To Wear": 1,
+          "brightland": 1
+        }
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "type": "radio",
+    "question": "Tom Nook:",
+    "image": "tom_nook.jpg",
+    "options": [
+      {
+        "response": "Loan Shark",
+        "nextID": 12,
+        "points": {
+          "To Cultivate": 1
+        }
+      },
+      {
+        "response": "Handsome",
+        "nextID": 12,
+        "points": {
+          "lateral-cooking": 1
+        }
+      },
+      {
+        "response": "Dangerous",
+        "nextID": 12,
+        "points": {
+          "cherry": 1
+        }
+      },
+      {
+        "response": "Who?",
+        "nextID": 12,
+        "points": {
+          "equal-parts": 1
+        }
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "type": "radio",
+    "question": "Reading much?",
+    "image": "read.jpg",
+    "options": [
+      {
+        "response": "Yes",
+        "nextID": 13,
+        "points": {
+          "To Read": 1,
+          "lateral-cooking": 1,
+          "unhide": 1
+        }
+      },
+      {
+        "response": "Not so much",
+        "nextID": 13,
+        "points": {
+          "cherry": -10,
+          "pattern-language": -10
+        }
+      },
+      {
+        "response": "Is Twitter reading?",
+        "nextID": 14,
+        "points": {
+          "disposable": 1,
+          "nasa": 1
+        }
+      },
+      {
+        "response": "Is mayonnaise an instrument?",
+        "nextID": 14,
+        "points": {
+          "grown-alchemist": 1,
+          "disposable": 1
+        }
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "type": "radio",
+    "question": "What do you like to read?",
+    "image": "read.jpg",
+    "options": [
+      {
+        "response": "Bestselling Books",
+        "nextID": 14,
+        "points": {
+          "To Read": 1,
+          "tattoist": 3,
+          "cherry": 3,
+          "blue-bottle": 1
+        }
+      },
+      {
+        "response": "Cook Books",
+        "nextID": 14,
+        "points": {
+          "equal-parts": 1,
+          "salt-fat-acid-heat": 3,
+          "lateral-cooking": 3
+        }
+      },
+      {
+        "response": "Coffee Table Books",
+        "nextID": 14,
+        "points": {
+          "warhol": 3,
+          "nasa": 3,
+          "square-circle-triangle": 3,
+          "wine": 3
+        }
+      },
+      {
+        "response": "Quickbooks",
+        "nextID": 14,
+        "points": {}
+      }
+    ]
+  },  
+  {
+    "id": 14,
+    "type": "radio",
+    "question": "Coffee?",
+    "image": "coffee.jpg",
+    "options": [
+      {
+        "response": "Yes",
+        "nextID": 15,
+        "points": {
+          "devocion": 1,
+          "blue-bottle": 1
+        }
+      },
+      {
+        "response": "Decaf",
+        "nextID": 16,
+        "points": {
+          "devocion": 1,
+          "blue-bottle": 1
+        }
+      },
+      {
+        "response": "Tea",
+        "nextID": 16,
+        "points": {
+          "devocion": -10,
+          "blue-bottle": -10
+        }
+      },
+      {
+        "response": "Water",
+        "nextID": 16,
+        "points": {
+          "winc": 1
+        }
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "type": "radio",
+    "question": "How do you brew?",
+    "image": "brew.jpg",
+    "options": [
+      {
+        "response": "Espresso Machine",
+        "nextID": 16,
+        "points": {
+          "devocion": 1
+        }
+      },
+      {
+        "response": "French Press",
+        "nextID": 16,
+        "points": {
+          "To Cook": 1,
+          "blue-bottle": 1
+        }
+      },
+      {
+        "response": "Drip",
+        "nextID": 16,
+        "points": {
+          "To Play": 1,
+          "devocion": 1
+        }
+      },
+      {
+        "response": "Other",
+        "nextID": 16,
+        "points": {
+          "blue-bottle": 1,
+          "herbivore": 1
+        }
+      }
+    ]
+  },
+  {
+    "id": 16,
+    "type": "radio",
+    "question": "Baked?",
+    "image": "baked.jpg",
+    "options": [
+      {
+        "response": "Bread",
+        "nextID": 17,
+        "points": {
+          "To Cook": 1,
+          "brightland": 2,
+          "bloomscape": 1
+        }
+      },
+      {
+        "response": "Cookies",
+        "nextID": 19,
+        "points": {
+          "van-lewens": 1,
+          "click-grow": 1
+        }
+      },
+      {
+        "response": "Mug Cake",
+        "nextID": 19,
+        "points": {
+          "grocer": 1,
+          "rooted": 1,
+          "lunya": 1
+        }
+      },
+      {
+        "response": "Yes.",
+        "nextID": 19,
+        "points": {
+          "psych": 2,
+          "van-lewens": 1
+        }
+      }
+    ]
+  },
+  {
+    "id": 17,
+    "type": "radio",
+    "question": "Do you have yeast?",
+    "image": "yeast.jpg",
+    "options": [
+      {
+        "response": "Yes",
+        "nextID": 19,
+        "points": {}
+      },
+      {
+        "response": "No",
+        "nextID": 19,
+        "points": {
+          "madhappy": 1
+        }
+      },
+      {
+        "response": "Flour + Water?",
+        "nextID": 19,
+        "points": {}
+      }
+    ]
+  },
+  {
+    "id": 19,
+    "type": "radio",
+    "question": "Keeping fit?",
+    "image": "keeping_fit.jpg",
+    "options": [
+      {
+        "response": "Jogging = social distance",
+        "nextID": 20,
+        "points": {
+          "lou-grey": 1
+        }
+      },
+      {
+        "response": "Yoga",
+        "nextID": 1121,
+        "points": {
+          "To Relax": 1,
+          "ikigai": 2,
+          "wnrs": 1
+        }
+      },
+      {
+        "response": "30-day workout challenge",
+        "nextID": 20,
+        "points": {
+          "To Read": 1
+        }
+      },
+      {
+        "response": "Slowly gaining the covid-19",
+        "nextID": 20,
+        "points": {
+          "grocer": 1,
+          "van-lewens": 1
+        }
+      }
+    ]
+  },
+  {
+    "id": 1121,
+    "type": "radio",
+    "question": "Meditation?",
+    "image": "meditation.jpg",
+    "options": [
+      {
+        "response": "I'm a Yogi",
+        "nextID": 20,
+        "points": {
+          "boysmells": 1,
+          "wnrs": 1
+        }
+      },
+      {
+        "response": "No-maste",
+        "nextID": 20,
+        "points": {}
+      }
+    ]
+  },
+  {
+    "id": 20,
+    "type": "radio",
+    "question": "Watched Any Livestreams?",
+    "image": "livestreams.jpg",
+    "options": [
+      {
+        "response": "Instagram.",
+        "nextID": 21,
+        "points": {
+          "gravity": 1,
+          "hawthorne": 1
+        }
+      },
+      {
+        "response": "Couchella",
+        "nextID": 21,
+        "points": {
+          "To Drink": 1,
+          "gravity": 3,
+          "herbivore": 1,
+          "hawthorne": 3
+        }
+      },
+      {
+        "response": "Zoom fitness",
+        "nextID": 21,
+        "points": {
+          "To Read": 1,
+          "tattooist": 1
+        }
+      },
+      {
+        "response": "Nope",
+        "nextID": 21,
+        "points": {}
+      }
+    ]
+  },
+  {
+    "id": 21,
+    "type": "radio",
+    "question": "Growing plants?",
+    "image": "plants.jpg",
+    "options": [
+      {
+        "response": "Succulent",
+        "nextID": 22,
+        "points": {
+          "To Cultivate": 1,
+          "boysmells": 1
+        }
+      },
+      {
+        "response": "Houseplants",
+        "nextID": 22,
+        "points": {
+          "To Cultivate": 1
+        }
+      },
+      {
+        "response": "I live in a greenhouse",
+        "nextID": 22,
+        "points": {
+          "To Cultivate": -10
+        }
+      },
+      {
+        "response": "I kill everything I touch",
+        "nextID": 22,
+        "points": {
+          "To Cultivate": -10
+        }
+      }
+    ]
+  },
+  {
+    "id": 22,
+    "type": "radio",
+    "question": "Covid Fit?",
+    "image": "outfit.jpg",
+    "options": [
+      {
+        "response": "Starts with P; ends with J",
+        "nextID": "end",
+        "points": {
+          "To Wear": 1,
+          "madhappy": 1,
+          "offhours": 1,
+          "lunya": 1
+        }
+      },
+      {
+        "response": "Top half is Dressed",
+        "nextID": "end",
+        "points": {
+          "merchaid": 2,
+          "lou-grey": 1
+        }
+      },
+      {
+        "response": "Look good feel good",
+        "nextID": "end",
+        "points": {
+          "east": 2,
+          "merchaid": 1
+        }
+      },
+      {
+        "response": "New Day Same Shirt",
+        "nextID": "end",
+        "points": {
+          "To Create": 1,
+          "east": 1
+        }
+      }
+    ]
+  }
+]

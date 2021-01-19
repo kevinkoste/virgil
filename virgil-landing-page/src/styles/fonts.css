@@ -1,0 +1,18 @@
+/* Default classes *
+
+/* Fonts */
+@font-face {
+  font-family: 'romana';
+  src: url('../fonts/romanabt-webfont.woff2') format('woff2'),
+       url('../fonts/romanabt-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'romana-bold';
+  src: url('../fonts/romanaboldbt-webfont.woff2') format('woff2'),
+       url('../fonts/romanaboldbt-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
