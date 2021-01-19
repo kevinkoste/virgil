@@ -1,0 +1,11 @@
+{
+  "body": {
+    "public_token": "public-sandbox-1e8e5b68-aec5-4d21-8571-a446867ab42c"
+  },
+  "requestContext": {
+    "identity": {
+      "cognitoIdentityId": "mock-identity-pool-id",
+      "cognitoAuthenticationProvider": "cognito-idp.us-east-1.amazonaws.com/us-east-1_xxxxxxxxx,cognito-idp.us-east-1.amazonaws.com/us-east-1_mock-user-pool:CognitoSignIn:mock-user-pool_userId"
+    }
+  }
+}

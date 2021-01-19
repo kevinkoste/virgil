@@ -1,0 +1,39 @@
+{
+  "name": "virgil-lambda-api",
+  "version": "1.0.0",
+  "description": "Virgil serverless backend",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kevinkoste/virgil-serverless-api.git"
+  },
+  "scripts": {
+    "start": "serverless offline start --skipCacheInvalidation",
+    "test": "serverless-bundle test",
+    "mock-postPlaidToken": "sls invoke local --function postPlaidToken --path mocks/postPlaidToken.json",
+    "mock-webhookPlaid": "sls invoke local --function webhookPlaid --path mocks/webhookPlaid.json",
+    "mock-getPlaidTransactions": "sls invoke local --function getPlaidTransactions --path mocks/getPlaidTransactions.json"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "googleapis": "^52.0.0",
+    "moment": "^2.26.0",
+    "pg": "^8.2.1",
+    "plaid": "^5.1.0",
+    "serverless-plugin-scripts": "^1.0.2"
+  },
+  "devDependencies": {
+    "aws-sdk": "^2.686.0",
+    "serverless-dotenv-plugin": "^2.4.2",
+    "serverless-bundle": "^1.7.0",
+    "serverless-domain-manager": "^4.1.1",
+    "serverless-offline": "^6.3.0",
+    "serverless-plugin-warmup": "^4.9.0"
+  },
+  "jest": {
+    "setupFilesAfterEnv": [
+      "./tests/jest-preload-env.js"
+    ]
+  }
+}

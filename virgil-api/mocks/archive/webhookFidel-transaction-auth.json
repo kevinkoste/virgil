@@ -1,0 +1,13 @@
+{
+  "headers": {
+    "event":"fidel-transaction-auth"
+  },
+  "body": {
+    "id":"mock-transaction-id",
+    "accountId":"mock-account-id",
+    "card": {
+      "id":"mock-card-id"
+    },
+    "amount":"mock-transaction-amount"
+  }
+}

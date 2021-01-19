@@ -1,0 +1,31 @@
+Resources:
+
+  ItemsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: ${self:custom.itemsTableName}
+      BillingMode: PAY_PER_REQUEST
+      KeySchema:
+        - AttributeName: itemId
+          KeyType: HASH
+      AttributeDefinitions:
+        - AttributeName: itemId
+          AttributeType: S
+        - AttributeName: userId
+          AttributeType: S
+        - AttributeName: accessToken
+          AttributeType: S
+        - AttributeName: transactions
+          AttributeType: L
+        - AttributeName: createdAt
+          AttributeType: S
+      # include secondary index to enable query by userId
+      GlobalSecondaryIndexes:
+        - IndexName: userId-index
+          KeySchema:
+            - AttributeName: userId
+              KeyType: HASH
+          Projection:
+            ProjectionType: ALL
+      StreamSpecification:
+        StreamViewType: NEW_IMAGE

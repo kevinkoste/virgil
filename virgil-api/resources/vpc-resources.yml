@@ -1,0 +1,213 @@
+# CloudFormation file
+Description: Resources implementing a VPC with 2 subnets, and an RDS Postgres instance
+
+Resources:
+
+  # Core VPC resources:
+  # VPC, Subnets
+  VirgilVPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: ${env:VPC_CIDR}.0.0.0/16
+      EnableDnsSupport: true
+      EnableDnsHostnames: true
+      InstanceTenancy: default
+      Tags: 
+        - Key: "Name"
+          Value: "VirgilVPC"
+
+  VirgilSubnetA:
+    Type: AWS::EC2::Subnet
+    DependsOn: VirgilVPC
+    Properties:
+      VpcId:
+        Ref: VirgilVPC
+      AvailabilityZone: ${self:provider.region}a
+      CidrBlock: ${env:VPC_CIDR}.0.0.0/24
+      Tags: 
+        - Key: "Name"
+          Value: "VirgilSubnetA"
+
+  VirgilSubnetB:
+    Type: AWS::EC2::Subnet
+    DependsOn: VirgilVPC
+    Properties:
+      VpcId:
+        Ref: VirgilVPC
+      AvailabilityZone: ${self:provider.region}b
+      CidrBlock: ${env:VPC_CIDR}.0.1.0/24
+      Tags: 
+        - Key: "Name"
+          Value: "VirgilSubnetB"
+
+  VirgilSubnetC:
+    Type: AWS::EC2::Subnet
+    DependsOn: VirgilVPC
+    Properties:
+      VpcId:
+        Ref: VirgilVPC
+      AvailabilityZone: ${self:provider.region}c
+      CidrBlock: ${env:VPC_CIDR}.0.2.0/24
+      Tags: 
+        - Key: "Name"
+          Value: "VirgilSubnetC"
+
+
+  # Resources for VPC public subnet networking
+  # Internet Gateway, Internet Gateway Attachment, Public Route Table/Route, Route Table Association
+  VirgilInternetGateway:
+    Type: AWS::EC2::InternetGateway
+    Properties:
+      Tags:
+        - Key: "Name"
+          Value: "VirgilInternetGateway"
+
+  VirgilVPCGatewayAttachment:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      VpcId:
+        Ref: VirgilVPC
+      InternetGatewayId:
+        Ref: VirgilInternetGateway
+
+  VirgilRouteTablePublic:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId:
+        Ref: VirgilVPC
+      Tags:
+        - Key: Name
+          Value: virgil-public-route-table
+
+  VirgilRoutePublic:
+    Type: AWS::EC2::Route
+    Properties:
+      DestinationCidrBlock: 0.0.0.0/0
+      RouteTableId:
+        Ref: VirgilRouteTablePublic
+      GatewayId:
+        Ref: VirgilInternetGateway
+
+  VirgilRouteTableAssociationSubnetA:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId:
+        Ref: VirgilRouteTablePublic
+      SubnetId:
+        Ref: VirgilSubnetA
+
+
+  # Resources for VPC public subnet networking
+  # Elastic IP, NAT Gateway, Private Route Table/Route, Route Table Associations
+  VirgilEip:
+    Type: AWS::EC2::EIP
+    DependsOn: VirgilVPC
+    Properties:
+      Domain: vpc
+
+  VirgilNatGateway:
+    Type: AWS::EC2::NatGateway
+    Properties:
+      AllocationId:
+        Fn::GetAtt: [ VirgilEip, AllocationId ]
+      SubnetId:
+        Ref: VirgilSubnetA
+
+  VirgilRouteTablePrivate:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId:
+        Ref: VirgilVPC
+      Tags:
+        - Key: Name
+          Value: virgil-private-route-table
+
+  VirgilRoutePrivate:
+    Type: AWS::EC2::Route
+    Properties:
+      DestinationCidrBlock: 0.0.0.0/0
+      RouteTableId:
+        Ref: VirgilRouteTablePrivate
+      NatGatewayId:
+        Ref: VirgilNatGateway
+  
+  VirgilRouteTableAssociationSubnetB:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId:
+        Ref: VirgilRouteTablePrivate
+      SubnetId:
+        Ref: VirgilSubnetB
+
+  VirgilRouteTableAssociationSubnetC:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId:
+        Ref: VirgilRouteTablePrivate
+      SubnetId:
+        Ref: VirgilSubnetC
+
+
+  # RDS (Postgres) networking resources:
+  # DB Security Group, DB Subnet Group, DB Instance
+  VirgilRdsSecurityGroup:
+    Type: "AWS::EC2::SecurityGroup"
+    Properties:
+      GroupName: ${self:service}-${self:provider.stage}-db-sg
+      GroupDescription: Allow local inbound to port 5432, no outbound
+      SecurityGroupIngress:
+        - CidrIp: 10.0.0.0/16
+          IpProtocol: tcp
+          FromPort: 5432
+          ToPort: 5432
+      SecurityGroupEgress:
+        - IpProtocol: -1
+          CidrIp: 127.0.0.1/32
+      VpcId:
+        Ref: VirgilVPC
+
+  VirgilRdsSubnetGroup:
+    Type: AWS::RDS::DBSubnetGroup
+    Properties:
+      DBSubnetGroupDescription: "RDS Subnet Group"
+      SubnetIds:
+        - Ref: VirgilSubnetB
+        - Ref: VirgilSubnetC
+      Tags: 
+        - Key: "Name"
+          Value: "VirgilRdsSubnetGroup"
+
+  VirgilPostgresDB:
+    DependsOn: VirgilVPCGatewayAttachment
+    Type: AWS::RDS::DBInstance
+    Properties:
+      Engine: postgres
+      DBInstanceClass: db.t2.micro
+      AllocatedStorage: 20
+
+      DBInstanceIdentifier: virgil-${self:provider.stage}-db
+      DBName: ${env:PGDATABASE}
+      MasterUsername: ${env:PGUSER}
+      MasterUserPassword: ${env:PGPASSWORD}
+
+      VPCSecurityGroups:
+        - Fn::GetAtt: [ VirgilRdsSecurityGroup, GroupId ]
+      DBSubnetGroupName:
+        Ref: VirgilRdsSubnetGroup
+
+
+  # Resources for Lambda functions:
+  # Security Group
+  VirgilLambdaSecurityGroup:
+    DependsOn: VirgilVPC
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Allow all outbound traffic, no inbound
+      VpcId:
+        Ref: VirgilVPC
+      SecurityGroupIngress:
+        - IpProtocol: -1
+          CidrIp: 127.0.0.1/32
+      Tags: 
+        - Key: "Name"
+          Value: "VirgilSecurityGroup"

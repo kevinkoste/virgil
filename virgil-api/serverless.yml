@@ -1,0 +1,169 @@
+# Serverless config for virgil api
+
+service: virgil-api
+org: kevinkoste
+
+plugins:
+  - serverless-dotenv-plugin # Load .env as environment variables
+  - serverless-bundle # Package our functions with Webpack
+  - serverless-offline
+  - serverless-domain-manager # Use custom domain
+  - serverless-plugin-warmup # Add warmup: true to keep functions warm
+  - serverless-plugin-scripts # Trigger db migrations on deploy
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: dev
+
+  environment:
+    # service name for child functions
+    SERVICE_NAME: ${self:service}
+
+    # AWS SES
+    AWS_SES_VERIFIED_ADDRESS_ARN: ${env:AWS_SES_VERIFIED_ADDRESS_ARN}
+    AWS_SES_ACCESS_KEY_ID: ${env:AWS_SES_ACCESS_KEY_ID}
+    AWS_SES_SECRET_ACCESS_KEY: ${env:AWS_SES_SECRET_ACCESS_KEY}
+    AWS_SES_REGION: ${env:AWS_SES_REGION}
+
+    # Google API
+    GOOGLE_SHEET_ID_EMAILS: ${env:GOOGLE_SHEET_ID_EMAILS}
+
+    # DynamoDB table name based on stage
+    ITEMS_TABLE_NAME: ${self:custom.itemsTableName}
+
+    # VPC config
+    # VPC_CIDR: ${env:VPC_CIDR}
+
+    # RDS Postgres
+    PGHOST: ${self:custom.POSTGRESQL.HOST}
+    PGPORT: ${self:custom.POSTGRESQL.PORT}
+    PGDATABASE: ${env:PGDATABASE}
+    PGUSER: ${env:PGUSER}
+    PGPASSWORD: ${env:PGPASSWORD}
+
+  iamRoleStatements:
+    # serverless-keep-warm role
+    - Effect: 'Allow'
+      Action: 'lambda:InvokeFunction'
+      Resource: "*"
+    # DynamoDB role
+    - Effect: Allow
+      Action:
+        - dynamodb:DescribeTable
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+        - dynamodb:DescribeStream
+        - dynamodb:GetRecords
+        - dynamodb:GetShardIterator
+        - dynamodb:ListStreams
+      Resource:
+        - Fn::GetAtt: [ ItemsTable, Arn ]
+        - Fn::Join: [ "/", [ Fn::GetAtt: [ ItemsTable, Arn ], "index", "userId-index" ]]
+
+  # config to deploy functions in a VPC
+  vpc:
+    securityGroupIds:
+      - Ref: VirgilLambdaSecurityGroup
+    subnetIds:
+      - Ref: VirgilSubnetB
+      - Ref: VirgilSubnetC
+
+functions:
+
+  # function to welcome visitors
+  hello:
+    handler: functions/hello.main
+    events:
+      - http:
+          path: /
+          method: get
+          cors: true
+
+  # function to create required tables, triggered on deploy
+  pgMigrate:
+    handler: functions/utils/pgMigrate.main
+  pgTestGet:
+    handler: functions/utils/pgTestGet.main
+
+  # function handles exchanging plaid public token for access token and putting to users table
+  postPlaidToken: 
+    handler: functions/postPlaidToken.main
+    events:
+      - http:
+          path: plaid/token
+          method: post
+          cors: true
+          authorizer: aws_iam
+    warmup: true
+
+  # function handles all Plaid webhook logic based on "event" header
+  webhookPlaid: 
+    handler: functions/webhookPlaid.main
+    events:
+      - http:
+          path: plaid/webhook
+          method: post
+          cors: true
+    warmup: true
+
+  # function handles selecting all transactions for the authenticated user
+  getPlaidTransactions: 
+    handler: functions/getPlaidTransactions.main
+    events:
+      - http:
+          path: transactions
+          method: get
+          cors: true
+          authorizer: aws_iam
+    warmup: true
+
+
+resources:
+  # API Gateway Errors
+  - ${file(resources/api-gateway-errors.yml)}
+  # DynamoDB resources
+  - ${file(resources/dynamodb-resources.yml)}
+  # Cognito resources
+  - ${file(resources/cognito-resources.yml)}
+  # VPC and RDS resources
+  - ${file(resources/vpc-resources.yml)}
+
+custom:
+
+  # disable linting on bundle, ignore mistakenly required pg-native package
+  bundle: 
+    linting: false
+    ignorePackages:
+      - pg-native
+
+  # configure scripts to run based on serverless hooks
+  scripts:
+    hooks:
+      # 'deploy:finalize': sls invoke -f pgMigrate
+
+  # generate dynamodb table names based on stage
+  itemsTableName: ${self:custom.stage}-virgil-items
+
+  # configure custom domains for each stage
+  stage: ${opt:stage, self:provider.stage}
+  domains:
+    prod: api.virgilcard.com
+    staging: staging-api.virgilcard.com
+    dev: dev-api.virgilcard.com
+  customDomain:
+    domainName: ${self:custom.domains.${self:custom.stage}}
+    basePath: ''
+    stage: "${self:custom.stage}"
+    createRoute53Record: true
+
+  # configure RDS host and port 
+  POSTGRESQL:
+    HOST:
+      Fn::GetAtt: [VirgilPostgresDB, Endpoint.Address]
+    PORT:
+      Fn::GetAtt: [VirgilPostgresDB, Endpoint.Port]

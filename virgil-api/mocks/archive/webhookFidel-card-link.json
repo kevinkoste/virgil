@@ -1,0 +1,10 @@
+{
+  "headers": {
+    "event":"fidel-card-linked"
+  },
+  "body": {
+    "id":"mock-card-id",
+    "accountId":"mock-account-id",
+    "firstNumbers":"mock-first-numbers"
+  }
+}

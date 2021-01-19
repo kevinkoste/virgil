@@ -1,0 +1,220 @@
+# CloudFormation file
+Description: Resources implementing a custom Cognito User Pool and Identity Pool
+
+Resources:
+
+  # Cognito User Pool resources
+  VirgilCognitoUserPool:
+    Type: AWS::Cognito::UserPool
+    Properties:
+      # Recreated the following settings from an existing user pool
+      UserPoolName: ${self:custom.stage}-virgil-user-pool
+
+      UsernameAttributes:
+        - phone_number
+
+      UsernameConfiguration:
+        CaseSensitive: False
+
+      AutoVerifiedAttributes:
+        - phone_number
+
+      SmsVerificationMessage:
+        Your Virgil verification code is {####}
+
+      SmsConfiguration:
+        SnsCallerArn:
+          Fn::GetAtt: [ SNSRole, Arn ]
+        ExternalId: virgil-external
+
+      EmailConfiguration:
+        EmailSendingAccount:
+          DEVELOPER
+        From:
+          Virgil <hello@virgilcard.com>
+        ReplyToEmailAddress:
+          hello@virgilcard.com
+        SourceArn:
+          ${env:AWS_SES_VERIFIED_ADDRESS_ARN}
+
+      MfaConfiguration:
+        OPTIONAL
+
+      Policies:
+        PasswordPolicy: 
+          MinimumLength: 8
+          RequireLowercase: False
+          RequireNumbers: False
+          RequireSymbols: False
+          RequireUppercase: False
+          TemporaryPasswordValidityDays: 1
+
+      AdminCreateUserConfig:
+        AllowAdminCreateUserOnly: False
+
+      Schema:
+        - Name: first_name
+          AttributeDataType: String
+          Required: False
+          Mutable: True
+        - Name: last_name
+          AttributeDataType: String
+          Required: False
+          Mutable: True
+        - Name: email_address
+          AttributeDataType: String
+          Required: False
+          Mutable: True
+
+  # User Pool Client configuration for our client applications (i.e. React)
+  VirgilCognitoUserPoolClient:
+    Type: AWS::Cognito::UserPoolClient
+    Properties:
+      # Generate an app client name based on the stage
+      ClientName: ${self:custom.stage}-virgil-user-pool-client
+      UserPoolId:
+        Ref: VirgilCognitoUserPool
+      ExplicitAuthFlows:
+        - ADMIN_NO_SRP_AUTH
+      GenerateSecret: false
+
+  # IAM role that allows Cognito to send SNS messages
+  SNSRole:
+    Type: "AWS::IAM::Role"
+    Properties:
+      AssumeRolePolicyDocument: 
+        Version: "2012-10-17"
+        Statement:
+          - Effect: "Allow"
+            Principal: 
+              Service: 
+                - "cognito-idp.amazonaws.com"
+            Action: 
+              - "sts:AssumeRole"
+      Policies:
+        - PolicyName: "CognitoSNSPolicy"
+          PolicyDocument: 
+            Version: "2012-10-17"
+            Statement: 
+              - Effect: "Allow"
+                Action: "sns:publish"
+                Resource: "*"
+
+
+  # Cognito Identity Pool resources
+  # The federated identity for our user pool to auth with
+  VirgilCognitoIdentityPool:
+    Type: AWS::Cognito::IdentityPool
+    Properties:
+      # Generate a name based on the stage
+      IdentityPoolName: ${self:custom.stage}VirgilIdentityPool
+      # Don't allow unathenticated users
+      AllowUnauthenticatedIdentities: false
+      # Link to our User Pool
+      CognitoIdentityProviders:
+        - ClientId:
+            Ref: VirgilCognitoUserPoolClient
+          ProviderName:
+            Fn::GetAtt: [ "VirgilCognitoUserPool", "ProviderName" ]
+            
+  # IAM roles
+  VirgilCognitoIdentityPoolRoles:
+    Type: AWS::Cognito::IdentityPoolRoleAttachment
+    Properties:
+      IdentityPoolId:
+        Ref: VirgilCognitoIdentityPool
+      Roles:
+        authenticated:
+          Fn::GetAtt: [VirgilCognitoAuthRole, Arn]
+        unauthenticated:
+          Fn::GetAtt: [VirgilCognitoUnauthRole, Arn]
+          
+  # IAM role used for authenticated users
+  VirgilCognitoAuthRole:
+    Type: AWS::IAM::Role
+    Properties:
+      Path: /
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: 'Allow'
+            Principal:
+              Federated: 'cognito-identity.amazonaws.com'
+            Action:
+              - 'sts:AssumeRoleWithWebIdentity'
+            Condition:
+              StringEquals:
+                'cognito-identity.amazonaws.com:aud':
+                  Ref: VirgilCognitoIdentityPool
+              'ForAnyValue:StringLike':
+                'cognito-identity.amazonaws.com:amr': authenticated
+      Policies:
+        - PolicyName: 'VirgilCognitoAuthorizedPolicy'
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: 'Allow'
+                Action:
+                  - 'mobileanalytics:PutEvents'
+                  - 'cognito-sync:*'
+                  - 'cognito-identity:*'
+                Resource: '*'
+    
+              # Allow users to invoke our API
+              - Effect: 'Allow'
+                Action:
+                  - 'execute-api:Invoke'
+                Resource:
+                  Fn::Join:
+                    - ''
+                    -
+                      - 'arn:aws:execute-api:'
+                      - Ref: AWS::Region
+                      - ':'
+                      - Ref: AWS::AccountId
+                      - ':'
+                      - Ref: ApiGatewayRestApi
+                      - '/*'
+
+  # IAM role used for unauthenticated users
+  VirgilCognitoUnauthRole:
+    Type: AWS::IAM::Role
+    Properties:
+      Path: /
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: 'Allow'
+            Principal:
+              Federated: 'cognito-identity.amazonaws.com'
+            Action:
+              - 'sts:AssumeRoleWithWebIdentity'
+            Condition:
+              StringEquals:
+                'cognito-identity.amazonaws.com:aud':
+                  Ref: VirgilCognitoIdentityPool
+              'ForAnyValue:StringLike':
+                'cognito-identity.amazonaws.com:amr': unauthenticated
+      Policies:
+        - PolicyName: 'VirgilCognitoUnauthorizedPolicy'
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: 'Allow'
+                Action:
+                  - 'mobileanalytics:PutEvents'
+                  - 'cognito-sync:*'
+                Resource: '*'
+            
+  
+# Prints resource IDs that will be needed in the client application
+Outputs:
+  UserPoolId:
+    Value:
+      Ref: VirgilCognitoUserPool
+  UserPoolClientId:
+    Value:
+      Ref: VirgilCognitoUserPoolClient
+  IdentityPoolId:
+    Value:
+      Ref: VirgilCognitoIdentityPool
