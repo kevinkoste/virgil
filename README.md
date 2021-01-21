@@ -2,12 +2,12 @@
 
 In January 2020, I teamed up with two friends to build a high-engagement consumer credit card. We never launched Virgil, but we did build two products that I'd like to share.
 
+The idea was to offer a credit card that uses data to improve the spending experience. It was a paid subscription model, with all interchange passed to the customer as rewards from direct-to-consumer brands. The business would become profitable over time by gaining leverage in the revenue share agreements it struck with reward partners, while keeping customer reward rates the same.
+
 <br/>
 <div align="center"><em><b>Mobile App - Home and Spending</b></em></div>
 
 ![Image of Virgil App 1](https://github.com/kevinkoste/kevinkoste.com/raw/main/public/_work/virgil-app-1.png)
-
-The idea was to offer a credit card that uses data to improve the spending experience. It was a paid subscription model, with all interchange passed to the customer as rewards from direct-to-consumer brands. The business would become profitable over time by gaining leverage in the revenue share agreements it struck with reward partners, while keeping customer reward rates the same.
 
 ## Mobile App
 
