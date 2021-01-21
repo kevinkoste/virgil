@@ -29,12 +29,12 @@ Much of the design, layout, and navigation was lifted from leading consumer fint
 
 We built a landing page to measure interest in the brand & product. The images and copy were designed to address common complaints about existing card offerings while keeping things exciting.
 
+We also built a [**How It Works click-through article**](https://virgilcard.com/howitworks) to give some background about the card industry and explain Virgil's business model. This was a hit - we got a lot of unsolicited positive feedback on it.
+
 <br/>
 <div align="center"><em><b>Landing Page (Mobile)</b></em></div>
 
 ![Image of Virgil Landing Page Mobile](https://github.com/kevinkoste/kevinkoste.com/raw/main/public/_work/virgil-web-4.png)
-
-We also built a [**How It Works click-through article**](https://virgilcard.com/howitworks) to give some background about the card industry and explain Virgil's business model. This was a hit - we got a lot of unsolicited positive feedback on it.
 
 To drive traffic, we ran a giveaway that took place over 5 days. After a visitor entered their email address on the landing page, they were redirected to a "dashboard" where they found their referral link, the number of people that used their link to sign up, and their chance to win.
 
