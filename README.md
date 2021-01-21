@@ -14,11 +14,11 @@ Before committing to an actual card program, we decided to build a demo credit c
 
 Much of the design, layout, and navigation was lifted from leading consumer fintech apps like Clarity Money, Truebill & Robinhood. To improve the quality of the demo we did a few things manually, like mapping merchant IDs to company logos. It's a React Native app backed by a small Node/Express service and Postgres database to handle the [**Plaid Link flow**](https://plaid.com/docs/link/react-native/).
 
-<div align="center">**Mobile App - Rewards**</div>
+<div align="center"><em>Mobile App - Rewards</em></div>
 
 ![Image of Virgil App 2](https://github.com/kevinkoste/kevinkoste.com/raw/main/public/_work/virgil-app-2.png)
 
-<div align="center">_Mobile App - New Reward_</div>
+<div align="center"><b>Mobile App - New Reward</b></div>
 
 ![Image of Virgil App 3](https://github.com/kevinkoste/kevinkoste.com/raw/main/public/_work/virgil-app-3.png)
 
@@ -26,7 +26,7 @@ Much of the design, layout, and navigation was lifted from leading consumer fint
 
 We built a landing page to measure interest in the brand & product. The images and copy were designed to address common complaints about existing card offerings while keeping things exciting.
 
-<div align="center">**Landing Page (Mobile)**</div>
+<div align="center">Landing Page (Mobile)</div>
 
 ![Image of Virgil Landing Page Mobile](https://github.com/kevinkoste/kevinkoste.com/raw/main/public/_work/virgil-web-4.png)
 
@@ -36,7 +36,7 @@ To drive traffic, we ran a giveaway that took place over 5 days. After a visitor
 
 The giveaway generated a ~1700 person waitlist at a 32% conversion rate. The referral rate distribution was skewed, with a dozen or so people racking up 30+ referrals.
 
-<div align="center"><p>Landing Page - Referral Dashboard</p></div>
+<div align="center"><b>Landing Page - Referral Dashboard</b></div>
 
 ![Image of Virgil Landing Page 1](https://github.com/kevinkoste/kevinkoste.com/raw/main/public/_work/virgil-web-3.png)
 
