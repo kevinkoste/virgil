@@ -40,8 +40,9 @@ To drive traffic, we ran a giveaway that took place over 5 days. After a visitor
 
 The giveaway generated a ~1700 person waitlist at a 32% conversion rate. The referral rate distribution was skewed, with a dozen or so people racking up 30+ referrals.
 
+The landing page is a bare React app, which in retrospect makes very little sense. Today, I would probably use [**Next.js**](https://nextjs.org/) for easy static generation and out-of-the-box image optimization.
+
+<br/>
 <div align="center"><p><em><b>Landing Page - Referral Dashboard</b></em></p></div>
 
 ![Image of Virgil Landing Page 1](https://github.com/kevinkoste/kevinkoste.com/raw/main/public/_work/virgil-web-3.png)
-
-The landing page is a bare React app, which in retrospect makes very little sense. Today, I would probably use [**Next.js**](https://nextjs.org/) for easy static generation and out-of-the-box image optimization.
