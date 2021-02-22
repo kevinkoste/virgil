@@ -2,7 +2,7 @@ import React, { } from 'react'
 import { Route, Switch, BrowserRouter, Redirect } from 'react-router-dom'
 
 import HomePage from './pages/HomePage'
-// import SurveyPage from './pages/SurveyPage'
+import SurveyPage from './pages/SurveyPage'
 import HowItWorksPage from './pages/HowItWorksPage'
 import ConnectPage from './pages/ConnectPage'
 import DashboardPage from './pages/DashboardPage'
@@ -21,9 +21,9 @@ export default function App() {
           <HomePage />
         </Route>
 
-        {/* <Route path='/survey'>
+        <Route path='/survey'>
           <SurveyPage />
-        </Route> */}
+        </Route>
 
         <Route path='/howitworks'>
           <HowItWorksPage />
